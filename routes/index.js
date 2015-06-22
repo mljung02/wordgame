@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/start', function(req, res, next){
-  res.render('start')
+  res.render('start');
 })
 
 module.exports = router;

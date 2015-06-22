@@ -2,6 +2,9 @@ extends layout
 
 block content
   h1 Wordgame
-  p
-    div.wordbox
-      
+  div.wordbox(id="wordbox")
+  div.right
+    button(type="button" id="spin") Start
+  div.word(id="word")
+  div.right
+    button(type="button" id="enter") Enter

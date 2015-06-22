@@ -6,3 +6,33 @@ body {
 a {
   color: #00B7FF;
 }
+
+.right {
+  float: right;
+  display: inline-block;
+}
+
+button {
+  color: #900;
+  font-weight: bold;
+  font-size: 150%;
+  text-transform: uppercase;
+}
+
+.letter {
+  float: left;
+  box-sizing: border-box;
+  height:10%;
+  width:10%;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 120%;
+}
+
+.wordbox {
+  box-sizing: border-box;
+  height: 620px;
+  width: 50%;
+  background: red;
+  display: inline-block;
+}
