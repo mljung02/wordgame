@@ -3,10 +3,14 @@ extends layout
 block content
   h1 Wordgame
   div.wordbox(id="wordbox")
+  div.word(id="word")
+  div.word(id="timer")
   div.right
     button(type="button" id="spin") Start
     p
       div.score(id='score') 0
-  div.word(id="word")
-  div.right
-    button(type="button" id="enter") Enter
+    div.enter
+      button(type="button" id="enter") Enter
+  span.msg(id="msg")
+  
+    

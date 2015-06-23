@@ -1,10 +1,15 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #F6F4D2;
 }
 
 a {
   color: #00B7FF;
+}
+
+.score {
+  font-size: 300%;
 }
 
 .right {
@@ -31,8 +36,34 @@ button {
 
 .wordbox {
   box-sizing: border-box;
-  height: 620px;
+  height: 500px;
   width: 50%;
-  background: red;
+  background: #D4E09B;
   display: inline-block;
+  clear: left;
+  float: left;
+}
+
+.msg {
+  font-size: 300%;
+  color: red;
+}
+
+.word {
+  font-size: 300%;
+  float: left;
+  margin-left: 5%;
+  background: #CBDFBD;
+  width: 25%;
+  height: 100px;
+  margin-top: 200px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.enter {
+  margin-top: 100px;
+  box-sizing:border-box;
+  display: inline-block;
+  clear: both;
 }
