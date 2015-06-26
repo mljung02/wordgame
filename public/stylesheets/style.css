@@ -37,7 +37,7 @@ button {
 .wordbox {
   box-sizing: border-box;
   height: 500px;
-  width: 50%;
+  width: 500px;
   background: #D4E09B;
   display: inline-block;
   clear: left;
@@ -67,3 +67,15 @@ button {
   display: inline-block;
   clear: both;
 }
+
+#timer{
+    position:absolute;
+    top:10px;
+    right: 10px;
+    background: #CBDFBD;
+    width: 15%;
+    height: 100px;
+    font-size: 300%;
+    text-align: center;
+    vertical-align: middle;
+ }

@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Level 2
+    link(rel='stylesheet' href="/stylesheets/other.css")
+  body
+    h1 Level 2
+    canvas#canvas
+    - var i = 1;
+    while i < 21
+      div.tiles(id='stuff#{i}')= i++
+      
+    script(src='/javascripts/play.js')
+
+
+//- (height='300px' width='800px')

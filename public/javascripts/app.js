@@ -1,46 +1,36 @@
 var letterGen = 100;
-var wordbox = document.getElementById('wordbox');
+var letters = document.getElementById('letters');
 var word = document.getElementById('word');
 var spin = document.getElementById('spin');
 var enter = document.getElementById('enter');
 var score = document.getElementById('score');
 var msg = document.getElementById('msg');
+var timer = document.getElementById('timer');
+var active = false;
+var time = 30;
 
-
-
-spin.addEventListener("click", function(){
-  wordbox.innerHTML = "";
-  word.innerHTML = "";
-  msg.innerHTML = "";
-  for (var i = 0; i < letterGen; i++) {
-    var letter = document.createElement('div');
-    letter.className = "letter"
-    letter.innerHTML = alph[Math.floor(Math.random() * alph.length)]
-    wordbox.appendChild(letter);
+//Mega event listener
+document.body.addEventListener('click', function(e){
+  
+  //Event listener for start button, toggles active to true.
+  if (!active && e.target.id === 'spin'){
+    generate();
+    createTimer(time);
   }
-})
-
-var select = function(e) {
-  if (e.target.className === 'letter') {
-    word.innerHTML += e.target.innerHTML;
-    e.target.innerHTML = "";
-  }
-}
-
-wordbox.addEventListener('click', select)
-
-enter.addEventListener('click', function(){
-  for (var i = 0; i < dictionary.length; i++) {
-    if (dictionary[i] === word.innerHTML.toUpperCase()) {
-      score.innerHTML = parseInt(score.innerHTML) + scoreCalc(word.innerHTML.toLowerCase());
-      word.innerHTML = "";
-      msg.innerHTML = "";
-      var found = true;
-      break;
+  
+  //After game start
+  if (active){
+    
+    //checking against dictionary
+    if(e.target.id === 'enter'){
+      checkWord();
     }
-  }
-  if (!found) {
-    msg.innerHTML = "Not a real word!"
+    
+    //moves letter from letters to word
+    if(e.target.className === 'letter'){
+      selectLetter(e);
+    }
+    
+    
   }
 })
-
