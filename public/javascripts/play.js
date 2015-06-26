@@ -2,14 +2,15 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
-// context.fillRect(700, 0, 100, 300)
+context.fillRect(700, 0, 100, 300)
 
 canvas.width = 800;
 canvas.height = 300;
 
 var coinImage = new Image();
 coinImage.src = "/images/coin-sprite-animation.png";
-
+var batImage = new Image();
+batImage.src = '/images/vampires.png'
 
 function sprite (options) {
 	
@@ -17,8 +18,13 @@ function sprite (options) {
 			frameIndex = 0,
 			tickCount = 0,
 			ticksPerFrame = options.ticksPerFrame || 0,
-			numberOfFrames = options.numberOfFrames || 1;
+			numberOfFrames = options.numberOfFrames || 1,
+      xpos = 0,
+      direction = 1;
 		
+    
+    that.sheetX = options.sheetX;
+    that.sheetY = options.sheetY;
 		that.context = options.context;
 		that.width = options.width;
 		that.height = options.height;
@@ -40,48 +46,81 @@ function sprite (options) {
                     frameIndex = 0;
                 }
             }
+            if (xpos > 700 || xpos < 0) {
+              direction *= -1;
+            }
+          xpos += 1 * direction;
         };
 		
 		that.render = function () {
 		
 		  // Clear the canvas
-		  that.context.clearRect(0, 0, that.width, that.height);
+		  that.context.clearRect(-5 + xpos, 200, that.width[frameIndex] + 10, that.height[frameIndex] +20);
 		  
 		  // Draw the animation
 		  that.context.drawImage(
 		    that.image,
-		    frameIndex * that.width / numberOfFrames,
-		    0,
-		    that.width / numberOfFrames,
-		    that.height,
-		    0,
-		    0,
-		    that.width / numberOfFrames,
-		    that.height);
+		    // frameIndex * that.width / numberOfFrames,
+        that.sheetX[frameIndex],
+        // 0
+		    that.sheetY[frameIndex],
+		    that.width[frameIndex],
+		    that.height[frameIndex],
+		    xpos,
+		    200,
+        that.width[frameIndex],
+		    that.height[frameIndex]);
 		};
 		
 		return that;
 	}
 
-var coin = sprite({
-    context: canvas.getContext("2d"),
-    width: 1000,
-    height: 100,
-    image: coinImage,
-    numberOfFrames: 10,
-		ticksPerFrame: 4,
-});
+// var coin = sprite({
+//     context: canvas.getContext("2d"),
+//     width: 1000,
+//     height: 100,
+//     image: coinImage,
+//     numberOfFrames: 10,
+// 		ticksPerFrame: 10,
+// });
+
+var bat = sprite({
+  context: canvas.getContext("2d"),
+  width: [52, 50, 51],
+  height: [68, 74, 69],
+  image: batImage,
+  numberOfFrames: 3,
+  ticksPerFrame: 10,
+  sheetX: [515, 596, 669],
+  sheetY: [166, 164, 157]
+})
+
+var batObj = {
+  context: canvas.getContext("2d"),
+  width: [52, 50, 51],
+  height: [68, 74, 69],
+  image: batImage,
+  numberOfFrames: 3,
+  ticksPerFrame: 10,
+  sheetX: [515, 596, 669],
+  sheetY: [166, 164, 157]
+}
 
 function gameLoop () {
 
   window.requestAnimationFrame(gameLoop);
   
-  coin.update();
-  coin.render();
+  bat.update();
+  bat.render();
 }
 
-coinImage.addEventListener("load", gameLoop)
+function batRender () {
+  // context.drawImage(batImage, batObj.sheetX[0], batObj.sheetY[0], batObj.width[0], batObj.height[0], 0, 0, batObj.width[0], batObj.height[0]);
+  // context.drawImage(coinImage, 0, 0)
+  // context.drawImage(batImage, batObj.sheetX[0], batObj.sheetY[0], batObj.width, 68, 0, 0, 52, 68)
+}
 
+batImage.addEventListener("load", gameLoop);
 // window.addEventListener('load', function () {
 //   coin.render();
 // })
