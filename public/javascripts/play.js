@@ -55,7 +55,7 @@ function sprite (options) {
 		that.render = function () {
 		
 		  // Clear the canvas
-		  that.context.clearRect(-5 + xpos, 200, that.width[frameIndex] + 10, that.height[frameIndex] +20);
+		  that.context.clearRect(-5 + xpos, 200, that.width[frameIndex] + 40, that.height[frameIndex] +40);
 		  
 		  // Draw the animation
 		  that.context.drawImage(
@@ -84,27 +84,19 @@ function sprite (options) {
 // 		ticksPerFrame: 10,
 // });
 
-var bat = sprite({
-  context: canvas.getContext("2d"),
-  width: [52, 50, 51],
-  height: [68, 74, 69],
-  image: batImage,
-  numberOfFrames: 3,
-  ticksPerFrame: 10,
-  sheetX: [515, 596, 669],
-  sheetY: [166, 164, 157]
-})
-
 var batObj = {
   context: canvas.getContext("2d"),
-  width: [52, 50, 51],
-  height: [68, 74, 69],
+  width: [62, 75, 81, 74, 69, 52, 50, 51, 49, 52, 74],
+  height: [91, 91, 100, 91, 78, 68, 74, 69, 76, 78, 92],
   image: batImage,
-  numberOfFrames: 3,
+  numberOfFrames: 11,
   ticksPerFrame: 10,
-  sheetX: [515, 596, 669],
-  sheetY: [166, 164, 157]
+  sheetX: [17, 109, 196, 310, 414, 515, 596, 669, 744, 811, 881],
+  sheetY: [154, 153, 143, 138, 148, 166, 164, 157, 149, 148, 136]
 }
+
+var bat = sprite(batObj)
+
 
 function gameLoop () {
 
