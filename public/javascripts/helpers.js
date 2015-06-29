@@ -1,53 +1,74 @@
-//Helper Function
+//Robot Constructor
+var Robot = function Robot(options) {
+	
+	var frameIndex;
+	
+	//inherent properties
+	this.frameIndex = 0,
+	this.tickCount = 0,
+	this.ticksPerFrame = options.ticksPerFrame || 0,
+	this.numberOfFrames = options.numberOfFrames || 1,
+	this.xpos = options.xpos || 25,
+	this.ypos = options.ypos || 200,
+	this.direction = 1;
+	this.dirIndex = 0;
+	
+	//Passed attributes
+	this.health = options.health;
+	this.fireRate = options.fireRate;
+	this.sheetX = options.sheetX;
+	this.sheetY = options.sheetY;
+	this.context = options.context;
+	this.width = options.width;
+	this.height = options.height;
+	this.image = options.image;
 
-//screen
-function Screen(width, height) {
-  this.canvas = document.createElement("canvas")
-  this.canvas.width = this.width = width;
-  this.canvas.height = this.height = height;
-  this.ctx = this.canvas.getContext("2d");
-  
-  document.body.appendChild(this.canvas);
 }
 
-Screen.prototype.drawSprite = function (sp, x, y) {
-  this.ctx.drawImage(sp.img, sp.x, sp.y, sp.h, x, y, sp.w, sp.h)
+Robot.prototype.render = function render(){
+
+	//img,sx,sy,sw,sh,dx,dy,dw,dh
+	this.context.drawImage(
+		this.image,
+		this.sheetX[this.dirIndex][this.frameIndex],
+		this.sheetY[this.dirIndex][this.frameIndex],
+		this.width[this.dirIndex][this.frameIndex],
+		this.height[this.dirIndex][this.frameIndex],
+		this.xpos,
+		this.ypos,
+		this.width[this.dirIndex][this.frameIndex] *.5,
+		this.height[this.dirIndex][this.frameIndex] *.5
+		);
+		
 }
 
+//Update frames
+Robot.prototype.update = function update(){
+	
+	//erase previous
+	this.context.clearRect(	this.xpos,
+													this.ypos,
+													this.width[this.dirIndex][this.frameIndex],
+													this.height[this.dirIndex][this.frameIndex])
+	
+	//updates pertinent positions
+	this.tickCount += 1;
 
-// Sprite
-function Sprite(img, x, y, w, h) {
-  this.img = img;
-  this.x = x;
-  this.y = y;
-  this.w = w;
-  this.h = h;
+	if (this.tickCount > this.ticksPerFrame) {
+
+		this.tickCount = 0;
+
+			// If the current frame index is in range
+			if (this.frameIndex < this.numberOfFrames - 1) {	
+					// Go to the next frame
+					this.frameIndex += 1;
+			} else {
+					this.frameIndex = 0;
+			}
+	}
+	if (this.xpos > 800 || this.xpos < 25) {
+		this.dirIndex += this.direction;
+		this.direction *= -1;
+	}
+	this.xpos += 1 * this.direction;		
 }
-
-
-//Input Handler
-function InputHandler() {
-  this.down = {};
-  this.pressed = {};
-  
-  var _this = this;
-  document.addEventListener('keydown', function (evt) {
-    _this.down[evt.keyCode] = true;
-  })
-  document.addEventListener('keyup', function (evt) {
-      delete _this.down[evt.keyCode];
-      delete _this.pressed[evt.keyCode];
-  });
-};
-
-InputHandler.prototype.isDown = function(code) {
-  return this.down[code];
-}
-
-InputHandler.prototype.isPressed = function(code) {
-  if (this.pressed[code]){
-    return false;
-  } else if (this.down[code]) {
-    return this.pressed;
-  }
-};

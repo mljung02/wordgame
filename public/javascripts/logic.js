@@ -22,7 +22,7 @@ var generate = function(){
   for (var i = 0; i < letterGen; i++) {
     var letter = document.createElement('div');
     letter.className = "letter"
-    letter.innerHTML = alph[Math.floor(Math.random() * alph.length)]
+    letter.innerHTML = randomWeightedLetter();
     letters.appendChild(letter);
   }
 }
@@ -61,4 +61,25 @@ var clearBoard = function() {
   letters.innerHTML = "";
   word.innerHTML = "";
   msg.innerHTML = "";
+}
+
+var randomWeightedLetter = function() {
+  return alph[Math.floor(Math.random() * alph.length)]
+}
+
+var tileRoll = function() {
+  for (var i = 0; i < tiles.length; i++) {
+    if(!tiles[i].id[5]){
+      tiles[i].innerHTML = randomWeightedLetter();
+    }
+  }
+}
+
+var toggleTile = function (e) {
+  if (!e.target.id[5]){
+    e.target.id += '.locked'
+  }
+  else {
+    e.target.id = e.target.id.substring(0,5)
+  }
 }

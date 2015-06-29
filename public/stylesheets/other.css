@@ -4,6 +4,7 @@ canvas {
 }
 
 body {
+  margin: 0px;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #F6F4D2;
@@ -15,12 +16,9 @@ body {
   width: 35px;
   display:inline-block;
   box-sizing: border-box;
-}
-
-.sprite {
-	background: url('/images/vampires.png') no-repeat -22px -12px;
-	width: 49px;
-	height: 87px;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
 }
 
 .spacer {
@@ -28,4 +26,5 @@ body {
   width: 35px;
   display:inline-block;
   box-sizing: border-box;
+  overflow:hidden;
 }
