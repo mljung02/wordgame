@@ -32,7 +32,7 @@ function gameLoop () {
 }
 
 tileRoll();
-document.body.addEventListener('load', setInterval(tileRoll, 4000));
+document.body.addEventListener('load', setInterval(tileRoll, 3000));
 bossOne.addEventListener("load", gameLoop);
 tileSpace.addEventListener('click', function (e) {
 	if (e.target.className === 'tiles') {

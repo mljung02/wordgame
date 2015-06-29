@@ -78,8 +78,10 @@ var tileRoll = function() {
 var toggleTile = function (e) {
   if (!e.target.id[5]){
     e.target.id += '.locked'
+    e.target.style.borderColor = 'red';
   }
   else {
-    e.target.id = e.target.id.substring(0,5)
+    e.target.id = e.target.id.substring(0,5);
+    e.target.style.borderColor = 'black';
   }
 }
