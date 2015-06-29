@@ -6,11 +6,46 @@ html
   body
     h1 Level 2
     canvas#canvas
-    - var i = 1;
-    while i < 21
-      div.tiles(id='stuff#{i}')= i++
-      
+    
+    div.spacer
+    
+    // 3 letter 1
+    div.tiles(id="3.1.1")
+    div.tiles(id="3.1.2")
+    div.tiles(id="3.1.3")
+    
+    div.spacer
+    
+    // 4 letter 2
+    div.tiles(id="4.1.1")
+    div.tiles(id="4.1.2")
+    div.tiles(id="4.1.3")
+    div.tiles(id="4.1.4")
+    
+    div.spacer
+    
+    //5 letter
+    div.tiles(id="5.1")
+    div.tiles(id="5.2")
+    div.tiles(id="5.3")
+    div.tiles(id="5.4")
+    div.tiles(id="5.5")
+    
+    div.spacer
+    
+    // 4 letter 2
+    div.tiles(id="4.2.1")
+    div.tiles(id="4.2.2")
+    div.tiles(id="4.2.3")
+    div.tiles(id="4.2.4")
+    
+    div.spacer
+    
+    // 3 letter 2
+    div.tiles(id="3.2.1")
+    div.tiles(id="3.2.2")
+    div.tiles(id="3.2.3")
+    
+    
+    
     script(src='/javascripts/play.js')
-
-
-//- (height='300px' width='800px')

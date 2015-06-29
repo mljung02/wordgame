@@ -22,3 +22,10 @@ body {
 	width: 49px;
 	height: 87px;
 }
+
+.spacer {
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+}

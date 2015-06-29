@@ -4,7 +4,7 @@ var context = canvas.getContext('2d');
 
 context.fillRect(700, 0, 100, 300)
 
-canvas.width = 800;
+canvas.width = 875;
 canvas.height = 300;
 
 var coinImage = new Image();
