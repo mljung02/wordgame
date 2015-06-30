@@ -1,3 +1,24 @@
+
+//Game start and stop.
+var start = function() {
+    if (!requestId) {
+       gameLoop();
+    }
+}
+
+var stop = function() {
+    if (requestId) {
+       window.cancelAnimationFrame(requestId);
+       requestId = undefined;
+    }
+}
+
+//draws a speech bubble
+var speechFloat = function(xpos,ypos){
+	context.drawImage(speech, xpos - 20, ypos, 105, 100)
+}
+
+
 //Robot Constructor
 var Robot = function Robot(options) {
 	
@@ -14,7 +35,7 @@ var Robot = function Robot(options) {
 	this.dirIndex = 0;
 	
 	//Passed attributes
-	this.health = options.health;
+	this.health = this.maxHealth = options.maxHealth;
 	this.fireRate = options.fireRate;
 	this.sheetX = options.sheetX;
 	this.sheetY = options.sheetY;
@@ -22,7 +43,7 @@ var Robot = function Robot(options) {
 	this.width = options.width;
 	this.height = options.height;
 	this.image = options.image;
-
+	
 }
 
 Robot.prototype.render = function render(){
@@ -71,4 +92,60 @@ Robot.prototype.update = function update(){
 		this.direction *= -1;
 	}
 	this.xpos += 1 * this.direction;		
+}
+
+Robot.prototype.damageCheck = function damageCheck(xFire,widthFire){
+	if (	(this.xpos >= xFire && this.xpos <= xFire + widthFire) || 
+				(this.xpos + this.width > xFire && this.xpos + this.width < xFire + widthFire)) {
+		this.context.fillStyle = 'red'
+		this.context.fillRect(175+(220*(this.maxHealth - this.health)),39,220,12)
+		this.health--
+		console.log(this.health, " health remaining");
+		// this.context.fillStyle = 'purple';
+		// this.context.fillRect(xFire, 200, widthFire, 200);
+		
+		this.context.strokeStyle = 'purple'
+		this.context.lineWidth = 5
+		this.context.beginPath();
+		this.context.moveTo(xFire, 300);
+		this.context.lineTo(xFire, 220);
+		this.context.lineTo(xFire+widthFire,220);
+		this.context.stroke();
+		
+		if (this.health <= 0) {
+			this.defeat();
+		}
+	}
+	else (
+		console.log('Miss!')
+	)
+}
+
+Robot.prototype.defeat = function defeat(){
+	stop();
+	this.stand();
+	speechFloat(this.xpos, 90);
+	this.context.fillStyle = "black";
+	this.context.font = "bold 12px Arial";
+	this.context.fillText("Will you be", this.xpos-5, 115);
+	this.context.fillText("my friend?", this.xpos-5, 135);
+	clearInterval(tileInterval);
+}
+
+Robot.prototype.stand = function stand(){
+	console.log('stand');
+	this.update();	
+	//img,sx,sy,sw,sh,dx,dy,dw,dh
+	this.context.drawImage(
+		this.image,
+		this.sheetX[this.dirIndex][3],
+		this.sheetY[this.dirIndex][3],
+		this.width[this.dirIndex][3],
+		this.height[this.dirIndex][3],
+		this.xpos,
+		this.ypos,
+		this.width[this.dirIndex][3] *.5,
+		this.height[this.dirIndex][3] *.5
+		);
+		
 }

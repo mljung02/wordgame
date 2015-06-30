@@ -7,7 +7,7 @@ var score = document.getElementById('score');
 var msg = document.getElementById('msg');
 var timer = document.getElementById('timer');
 var active = false;
-var time = 30;
+var time = 60;
 
 //Mega event listener
 document.body.addEventListener('click', function(e){
