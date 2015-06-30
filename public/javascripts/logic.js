@@ -257,3 +257,21 @@ var fireAway = function(tileDiv){
     }
   }
 }
+
+var energyLoss = function(time){
+  var initTime = time;
+  var timePercent = .99;
+  var timerDown = setInterval(function () {
+    // console.log(time, timePercent)
+    if (time < initTime*timePercent) {
+      timePercent = time/initTime;
+      ctx.clearRect(115+720*timePercent,9,72,12);
+    }
+    time -= .25
+    if (time < 0) {
+      ctx.clearRect(115,9,720,12);
+      clearInterval(timerDown);
+      bossOneAl.gameOver();
+    }
+  }, 250)
+}

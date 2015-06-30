@@ -1,14 +1,22 @@
 
 var canvas = document.getElementById('canvas');
+var bcanvas = document.getElementById('bcanvas');
 var context = canvas.getContext('2d');
+var ctx = bcanvas.getContext('2d')
 var tiles = document.getElementsByClassName('tiles');
 var tileSpace = document.getElementById('under');
 var fire = document.getElementsByClassName('fire');
 var requestId;
-var tileInterval = setInterval(tileRoll, 3000)
+var rollTime = 3000;
+var gameTime = 120;
+var tileInterval = setInterval(tileRoll, rollTime)
+var timer = document.getElementById('timer')
 
+bcanvas.width = 875;
 canvas.width = 875;
+bcanvas.height = 300;
 canvas.height = 300;
+
 
 var bossOne = new Image();
 bossOne.src = '/images/levelone.png'
@@ -30,16 +38,16 @@ var bossOneAlObj = {
 }
 
 //Health Bars
-context.fillStyle = "green";
-context.font = "bold 12px Arial";
-context.fillText("Your Health", 35, 20);
-context.fillRect(115,9,720,12)
-context.fillStyle = "red";
-context.font = "bold 12px Arial";
-context.fillText("Language Modules", 35, 50);
-context.strokeStyle= "red";
-context.rect(175,39,660,12);
-context.stroke();
+ctx.fillStyle = "green";
+ctx.font = "bold 12px Arial";
+ctx.fillText("Energy", 35, 20);
+ctx.fillRect(115,9,720,12)
+ctx.fillStyle = "red";
+ctx.font = "bold 12px Arial";
+ctx.fillText("Language Modules", 35, 50);
+ctx.strokeStyle= "red";
+ctx.rect(175,39,660,12);
+ctx.stroke();
 
 
 // context.fillRect(0, 300, 9)
@@ -55,8 +63,10 @@ function gameLoop () {
 
 
 tileRoll();
+
 document.body.addEventListener('load', tileInterval);
-bossOne.addEventListener("load", gameLoop);
+heart.addEventListener('load', energyLoss(gameTime));
+bossOne.addEventListener("load", start());
 tileSpace.addEventListener('click', function (e) {
 	if (e.target.className === 'tiles' && e.target.style.background === 'purple'){
 		console.log(sortTile(e.target.id))

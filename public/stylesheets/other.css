@@ -1,11 +1,24 @@
-canvas {
-  background-color: #D4E09B;
-  display: block;
+#bcanvas {
+  position:absolute;
+  background-color: transparent;
+  z-index: -1;
+  background:url('/images/background-main.jpeg')
 }
 
+#canvas {
+  display: block;
+  position; absolute;
+  background-color: transparent; 
+  z-index: 0;
+}
+
+h2 {
+  margin-left: 80px;
+}
 body {
   margin: 0px;
-  padding: 50px;
+  padding-left: 50px;
+  padding-top: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #F6F4D2;
 }

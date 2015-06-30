@@ -1,4 +1,6 @@
 
+var hitFire = 0;
+
 //Game start and stop.
 var start = function() {
     if (!requestId) {
@@ -18,6 +20,36 @@ var speechFloat = function(xpos,ypos){
 	context.drawImage(speech, xpos - 20, ypos, 105, 100)
 }
 
+var moveOut = function(mid,left,numb){
+	return left + numb*(mid-left)
+}
+
+var hitBox = function(xFire, widthFire){
+	ctx.fillStyle = 'purple';
+	var temp = xFire+widthFire/2;
+	//animate background
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.9),290,widthFire*.1,200)}, 50);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.8),280,widthFire*.2,200)}, 100);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.7),270,widthFire*.3,200)}, 150);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.6),260,widthFire*.4,200)}, 200);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.5),250,widthFire*.5,200)}, 250);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.4),240,widthFire*.6,200)}, 300);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.3),230,widthFire*.7,200)}, 350);
+	setTimeout(function(){ctx.fillRect(moveOut(temp,xFire,.2),220,widthFire*.8,200)}, 400);
+	setTimeout(function(){
+		ctx.fillRect(xFire,200,widthFire,200)
+		ctx.fillStyle = "black";
+		ctx.font = "bold 10px Arial";
+		ctx.fillText("DATA", xFire + 25, 215);
+		ctx.fillText("RECEIVED", xFire + 25, 235);
+		}, 450);
+	
+	setTimeout(function () {
+		ctx.clearRect(xFire,200,widthFire,200);
+	}, 2000)
+	
+}
+
 
 //Robot Constructor
 var Robot = function Robot(options) {
@@ -30,7 +62,7 @@ var Robot = function Robot(options) {
 	this.ticksPerFrame = options.ticksPerFrame || 0,
 	this.numberOfFrames = options.numberOfFrames || 1,
 	this.xpos = options.xpos || 25,
-	this.ypos = options.ypos || 200,
+	this.ypos = options.ypos || 230,
 	this.direction = 1;
 	this.dirIndex = 0;
 	
@@ -101,16 +133,8 @@ Robot.prototype.damageCheck = function damageCheck(xFire,widthFire){
 		this.context.fillRect(175+(220*(this.maxHealth - this.health)),39,220,12)
 		this.health--
 		console.log(this.health, " health remaining");
-		// this.context.fillStyle = 'purple';
-		// this.context.fillRect(xFire, 200, widthFire, 200);
-		
-		this.context.strokeStyle = 'purple'
-		this.context.lineWidth = 5
-		this.context.beginPath();
-		this.context.moveTo(xFire, 300);
-		this.context.lineTo(xFire, 220);
-		this.context.lineTo(xFire+widthFire,220);
-		this.context.stroke();
+
+		hitBox(xFire, widthFire)
 		
 		if (this.health <= 0) {
 			this.defeat();
@@ -133,7 +157,6 @@ Robot.prototype.defeat = function defeat(){
 }
 
 Robot.prototype.stand = function stand(){
-	console.log('stand');
 	this.update();	
 	//img,sx,sy,sw,sh,dx,dy,dw,dh
 	this.context.drawImage(
@@ -147,5 +170,13 @@ Robot.prototype.stand = function stand(){
 		this.width[this.dirIndex][3] *.5,
 		this.height[this.dirIndex][3] *.5
 		);
-		
+}
+
+Robot.prototype.gameOver = function gameOver(){
+	stop();
+	clearInterval(tileInterval);
+	this.stand()
+	this.context.fillStyle = "black";
+	this.context.font = "bold 100px Arial";
+	this.context.fillText("GAME OVER",100,140)
 }
