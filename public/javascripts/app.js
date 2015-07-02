@@ -6,8 +6,9 @@ var enter = document.getElementById('enter');
 var score = document.getElementById('score');
 var msg = document.getElementById('msg');
 var timer = document.getElementById('timer');
+var next = document.getElementById('next');
 var active = false;
-var time = 60;
+var time = 5;
 
 //Mega event listener
 document.body.addEventListener('click', function(e){
@@ -31,6 +32,9 @@ document.body.addEventListener('click', function(e){
       selectLetter(e);
     }
     
+    if (e.target.id === 'clear') {
+      clearWord();
+    }
     
   }
 })

@@ -34,7 +34,7 @@ body {
   overflow:hidden;
 }
 
-.tiles:hover{
+.fire:hover{
   border: 2px solid black;
 }
 

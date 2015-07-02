@@ -1,6 +1,4 @@
 
-var hitFire = 0;
-
 //Game start and stop.
 var start = function() {
     if (!requestId) {
@@ -154,6 +152,12 @@ Robot.prototype.defeat = function defeat(){
 	this.context.fillText("Will you be", this.xpos-5, 115);
 	this.context.fillText("my friend?", this.xpos-5, 135);
 	clearInterval(tileInterval);
+  clearInterval(timerDown);
+  setTimeout(function () {
+    this.context.fillStyle = "black";
+    this.context.font = "bold 80px Arial";
+    this.context.fillText("Victory!",300,160)
+  }, 2000)
 }
 
 Robot.prototype.stand = function stand(){

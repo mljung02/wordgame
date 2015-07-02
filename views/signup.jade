@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Alphabots User Sign Up
+  form(method='post' action='/signup')
+      label(for='email') E-mail:
+      p
+        input(type='email' id='email' name='email')
+      p
+        label(for='pw') Password:
+      p
+        input(type='password' id='pw' name='pw')
+      p
+        label(for='pwc') Confirm Password:
+      p
+        input(type='password' id='pw' name='pwconfirmation')
+      p
+        button Sign Up
+      p
+        a(href='/login') Login

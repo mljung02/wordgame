@@ -3,7 +3,9 @@ var word31 = '',
     word41 = '',
     word42 = '',
     word50 = ''
-    
+
+var timerDown;
+
 //Calculates score based on scrabble tile values times 10
 var scoreCalc = function(word) {
   var temp = 0;
@@ -13,11 +15,30 @@ var scoreCalc = function(word) {
   return temp * 10;
 }
 
+//Creates link to buy phase, temporarily l2
+var nextLevel = function(){
+  var request = new XMLHttpRequest;
+  request.open('POST','/update','true');
+  request.addEventListener('load', function () {
+    next.innerHTML = "";
+    var a = document.createElement('a');
+    a.href = '/buy';
+    a.innerHTML = 'Continue to Buy Phase';
+    next.appendChild(a);
+    console.log(request.response)
+  })
+  console.log(score.innerHTML)
+  var scrap = {};
+  scrap.scrap = score.innerHTML
+  request.setRequestHeader('Content-type','application/json')
+  request.send(JSON.stringify(scrap));
+}
 
 //Grabs a clicked letter and moves into to the word div
 var selectLetter = function(e) {
   word.innerHTML += e.target.innerHTML;
   e.target.innerHTML = "";
+  e.target.style.backgroundImage = 'none';
 }
 
 //populates the letters and toggles active for game start
@@ -44,8 +65,16 @@ var checkWord = function(){
     }
   }
   if (!found) {
-    msg.innerHTML = "Not a real word!"
+    msg.innerHTML = "Word not found";
+    setTimeout(function () {
+      msg.innerHTML = ""
+    }, 2000)
   }
+}
+
+//clears the word box;
+var clearWord = function(){
+  word.innerHTML = "";
 }
 
 //returns true if a word is found in dictionary
@@ -68,6 +97,7 @@ var createTimer = function(time){
       clearInterval(timerDown);
       active = !active;
       clearBoard();
+      nextLevel();
     }
   }, 1000)
 }
@@ -98,7 +128,7 @@ var toggleTile = function (e) {
   var tileDiv = sortTile(e.id);
   if (!e.id[5]){
     e.id += '.locked'
-    e.style.borderColor = 'red';
+    e.style.borderColor = '#3BD2FF';
   }
   else {
     e.id = e.id.substring(0,5);
@@ -224,35 +254,35 @@ var fireAway = function(tileDiv){
   if (tileDiv === '31') {
     bossOneAl.damageCheck(35,105);
     for (var i = 0; i < fire[0].children.length; i++) {
-      fire[0].children[i].style.background = '#F6F4D2';
+      fire[0].children[i].style.background = '#E6FDF8';
       toggleTile(fire[0].children[i]);
     }
   }
   if (tileDiv === '41') {
     bossOneAl.damageCheck(175,140);
     for (var i = 0; i < fire[1].children.length; i++) {
-      fire[1].children[i].style.background = '#F6F4D2';
+      fire[1].children[i].style.background = '#E6FDF8';
       toggleTile(fire[1].children[i]);
     }
   }
   if (tileDiv === '50') {
     bossOneAl.damageCheck(350,175);
     for (var i = 0; i < fire[2].children.length; i++) {
-      fire[2].children[i].style.background = '#F6F4D2';
+      fire[2].children[i].style.background = '#E6FDF8';
       toggleTile(fire[2].children[i]);
     }
   }
   if (tileDiv === '42') {
     bossOneAl.damageCheck(560,140);
     for (var i = 0; i < fire[3].children.length; i++) {
-      fire[3].children[i].style.background = '#F6F4D2';
+      fire[3].children[i].style.background = '#E6FDF8';
       toggleTile(fire[3].children[i]);
     }
   }
   if (tileDiv === '32') {
     bossOneAl.damageCheck(735,105);
     for (var i = 0; i < fire[4].children.length; i++) {
-      fire[4].children[i].style.background = '#F6F4D2';
+      fire[4].children[i].style.background = '#E6FDF8';
       toggleTile(fire[4].children[i]);
     }
   }
@@ -261,7 +291,7 @@ var fireAway = function(tileDiv){
 var energyLoss = function(time){
   var initTime = time;
   var timePercent = .99;
-  var timerDown = setInterval(function () {
+  timerDown = setInterval(function () {
     // console.log(time, timePercent)
     if (time < initTime*timePercent) {
       timePercent = time/initTime;

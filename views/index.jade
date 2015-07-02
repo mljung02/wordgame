@@ -1,7 +1,17 @@
 extends layout
 
 block content
-  h1 Wordgame
+  h1 Alphabots
+  p Please log in to play.
+    a.bump(href='/signup') Sign Up
+    form(method='post' action='/login')
+      p
+        label(for='username') Username (e-mail):
+        input(type='email' id='username' name='email')
+      p
+        label(for='password') Password:
+        input(type='password' id='username' name='pw')
+      button(type='submit') Log In
   p
     a(href="/start") Start
   p

@@ -9,8 +9,8 @@ var fire = document.getElementsByClassName('fire');
 var requestId;
 var rollTime = 3000;
 var gameTime = 120;
-var tileInterval = setInterval(tileRoll, rollTime)
-var timer = document.getElementById('timer')
+var tileInterval = setInterval(tileRoll, rollTime);
+var timer = document.getElementById('timer');
 
 bcanvas.width = 875;
 canvas.width = 875;

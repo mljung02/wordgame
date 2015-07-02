@@ -1,16 +1,31 @@
 extends layout
 
 block content
-  h1 Wordgame
+  h1#next Collect Scrap to Create Learning Modules.
+
   div.wordbox(id="letters")
-  div.word(id="word")
-  div(id="timer")
-  div.right
-    button(type="button" id="spin") Start
+  div.spacer
+    button.hovered(type="button" id="spin") Start
+    span.msg(id="msg")
     p
-      div.score(id='score') 0
+    div.row
+      div.word
+        span(id="word")
+      button.hovered(type="button" id="enter") Enter
+    div.row
+      div(id="timer")
+      button.hovered(type="button" id="clear") Trash
+    p
+    div.score(id='score') 0
+    
+    p
     div.enter
-      button(type="button" id="enter") Enter
-  span.msg(id="msg")
+    
+    if email
+      div#login Logged in as #{email}
+        span | 
+        a(href='/logout') Log Out
+      
+  
   
     
