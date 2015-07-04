@@ -38,6 +38,17 @@ body {
   border: 2px solid black;
 }
 
+.tiles-inactive{
+  border: 1px dotted grey;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
 .spacer {
   height: 35px;
   width: 35px;
@@ -48,4 +59,15 @@ body {
 
 .fire {
   display:inline-block;
+}
+
+#login{
+  display: block;
+  position: fixed;
+  background-color:#8EA371;
+  border: 1px solid black;
+  bottom: 0px;
+  height: 20px;
+  width: 90%;
+  text-align: center;
 }

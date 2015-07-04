@@ -8,11 +8,24 @@ var timerDown;
 
 //Calculates score based on scrabble tile values times 10
 var scoreCalc = function(word) {
+  var tempArray = [];
   var temp = 0;
+  var bonus = 1;
   for (var i = 0; i < word.length; i++) {
     temp += letterScores[word[i]]
   }
-  return temp * 10;
+  temp *= 10;
+  tempArray.push(temp);
+  tempArray.push(temp);
+  if (word.length > 4) {
+    for (var i = 4; i < word.length; i++) {
+      bonus += .1;
+    }
+    tempArray.push(bonus)
+    tempArray[0] = Math.round(tempArray[0] * tempArray[2]);
+  }
+  console.log(tempArray);
+  return tempArray;
 }
 
 //Creates link to buy phase, temporarily l2
@@ -28,10 +41,9 @@ var nextLevel = function(){
     console.log(request.response)
   })
   console.log(score.innerHTML)
-  var scrap = {};
-  scrap.scrap = score.innerHTML
+  gameState.scrap = parseInt(score.innerHTML)
   request.setRequestHeader('Content-type','application/json')
-  request.send(JSON.stringify(scrap));
+  request.send(JSON.stringify(gameState));
 }
 
 //Grabs a clicked letter and moves into to the word div
@@ -57,7 +69,7 @@ var generate = function(){
 var checkWord = function(){
   for (var i = 0; i < dictionary.length; i++) {
     if (dictionary[i] === word.innerHTML.toUpperCase()) {
-      score.innerHTML = parseInt(score.innerHTML) + scoreCalc(word.innerHTML.toLowerCase());
+      score.innerHTML = parseInt(score.innerHTML) + scoreCalc(word.innerHTML.toLowerCase())[0];
       word.innerHTML = "";
       msg.innerHTML = "";
       var found = true;
@@ -90,7 +102,7 @@ var wordCheck = function(word){
 
 //Creates a timer based upon a passed in time function
 var createTimer = function(time){
-  var timerDown = setInterval(function () {
+  timerDown = setInterval(function () {
     timer.innerHTML = time;
     time--
     if (time < 0) {
@@ -288,11 +300,11 @@ var fireAway = function(tileDiv){
   }
 }
 
+//sets timer for l2 and incremetally decreases energy bar, ends game when timer runs out
 var energyLoss = function(time){
   var initTime = time;
   var timePercent = .99;
   timerDown = setInterval(function () {
-    // console.log(time, timePercent)
     if (time < initTime*timePercent) {
       timePercent = time/initTime;
       ctx.clearRect(115+720*timePercent,9,72,12);
@@ -304,4 +316,83 @@ var energyLoss = function(time){
       bossOneAl.gameOver();
     }
   }, 250)
+}
+
+//Buy tile
+var buyTileSet = function(tileDiv, gameState) {
+  if (tileDiv === '31' && gameState.scrap >= 600) {
+    for (var i = 0; i < fire[0].children.length; i++) {
+      fire[0].children[i].className = 'tiles';
+      gameState.fire31[i]++;
+    }
+    gameState.scrap -= 600;
+    return gameState;
+  }
+  if (tileDiv === '41' && gameState.scrap >= 500) {
+    for (var i = 0; i < fire[1].children.length; i++) {
+      fire[1].children[i].className = 'tiles';
+      gameState.fire41[i]++;
+    }
+    gameState.scrap -= 500;
+    return gameState;
+  }
+  if (tileDiv === '50' && gameState.scrap >= 400) {
+    for (var i = 0; i < fire[2].children.length; i++) {
+      fire[2].children[i].className = 'tiles';
+      gameState.fire50[i]++;
+    }
+    gameState.scrap -= 400;
+    return gameState;
+  }
+  if (tileDiv === '42' && gameState.scrap >= 500) {
+    for (var i = 0; i < fire[3].children.length; i++) {
+      fire[3].children[i].className = 'tiles';
+      gameState.fire42[i]++;
+    }
+    gameState.scrap -= 500;
+    return gameState;
+  }
+  if (tileDiv === '32' && gameState.scrap >= 600) {
+    for (var i = 0; i < fire[4].children.length; i++) {
+      fire[4].children[i].className = 'tiles';
+      gameState.fire32[i]++;
+    }
+    gameState.scrap -= 600;
+    return gameState;
+  }
+  return gameState;
+}
+
+var decodeGameState = function (gameState) {
+  console.log(gameState.fire31)
+  if (gameState.fire31[0] === 1) {
+    console.log('31 decode!')
+    for (var i = 0; i < fire[0].children.length; i++) {
+      fire[0].children[i].className = 'tiles'
+    }
+  }
+  if (gameState.fire32[0] === 1) {
+    console.log('31 decode!')
+    for (var i = 0; i < fire[4].children.length; i++) {
+      fire[4].children[i].className = 'tiles'
+    }
+  }
+  if (gameState.fire41[0] === 1) {
+    console.log('41 decode!')
+    for (var i = 0; i < fire[1].children.length; i++) {
+      fire[1].children[i].className = 'tiles'
+    }
+  }
+  if (gameState.fire42[0] === 1) {
+    console.log('42 decode!')
+    for (var i = 0; i < fire[3].children.length; i++) {
+      fire[3].children[i].className = 'tiles'
+    }
+  }
+  if (gameState.fire50[0] === 1) {
+    console.log('50 decode!')
+    for (var i = 0; i < fire[2].children.length; i++) {
+      fire[2].children[i].className = 'tiles'
+    }
+  }
 }

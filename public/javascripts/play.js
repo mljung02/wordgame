@@ -62,17 +62,27 @@ function gameLoop () {
 }
 
 
-tileRoll();
-
-document.body.addEventListener('load', tileInterval);
-heart.addEventListener('load', energyLoss(gameTime));
-bossOne.addEventListener("load", start());
-tileSpace.addEventListener('click', function (e) {
-	if (e.target.className === 'tiles' && e.target.style.background === 'purple'){
-		console.log(sortTile(e.target.id))
-		fireAway(sortTile(e.target.id))
-	}
-	else if (e.target.className === 'tiles' && e.target.style.background != 'purple') {
-		toggleTile(e.target);
-	}
+var xhr = new XMLHttpRequest;
+xhr.open('get', '/update', 'true')
+xhr.addEventListener('load', function () {
+	var gameState = JSON.parse(xhr.response).gameState
+	console.log(gameState)
+	decodeGameState(gameState)
+	tileRoll();
+	setTimeout(function () {
+		document.body.addEventListener('load', tileInterval);
+		heart.addEventListener('load', energyLoss(gameTime));
+		bossOne.addEventListener("load", start());
+		tileSpace.addEventListener('click', function (e) {
+			if (e.target.className === 'tiles' && e.target.style.background === 'purple'){
+				console.log(sortTile(e.target.id))
+				fireAway(sortTile(e.target.id))
+			}
+			else if (e.target.className === 'tiles' && e.target.style.background != 'purple') {
+				toggleTile(e.target);
+			}
+		})
+	}, 5000)
 })
+xhr.send()
+

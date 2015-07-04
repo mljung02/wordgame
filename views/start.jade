@@ -17,15 +17,15 @@ block content
       button.hovered(type="button" id="clear") Trash
     p
     div.score(id='score') 0
-    
+    div.bonus 0
     p
     div.enter
     
-    if email
-      div#login Logged in as #{email}
-        span | 
-        a(href='/logout') Log Out
-      
+  if email
+    div#login Logged in as #{email}
+      span | 
+      a(href='/logout') Log Out
+    
   
   
     

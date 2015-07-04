@@ -2,7 +2,8 @@
   position:absolute;
   background-color: transparent;
   z-index: -1;
-  background:url('/images/background-main.jpeg')
+  background:url('/images/background-main.jpeg');
+  display: inline-block;
 }
 
 #canvas {
@@ -10,10 +11,11 @@
   position; absolute;
   background-color: transparent; 
   z-index: 0;
+  display: inline-block;
 }
 
 h2 {
-  margin-left: 80px;
+  margin-left: 175px;
 }
 body {
   margin: 0px;
@@ -25,6 +27,17 @@ body {
 
 .tiles{
   border: 1px solid black;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
+.tiles-inactive{
+  border: 1px dotted grey;
   height: 35px;
   width: 35px;
   display:inline-block;
@@ -49,3 +62,53 @@ body {
 .fire {
   display:inline-block;
 }
+
+.scrap {
+  display:inline-block;
+  vertical-align: top;
+  padding:3%;
+  font-size: 150%;
+  overflow:hidden;
+  height: 300px;
+  box-sizing: border-box;
+}
+
+#login{
+  display: block;
+  position: fixed;
+  background-color:#8EA371;
+  border: 1px solid black;
+  bottom: 0px;
+  height: 20px;
+  width: 90%;
+  text-align: center;
+}
+
+.score {
+  margin-left: 4%;
+  font-size: 200%;
+  width: 90%;
+  border-radius: 20px;
+  padding: 10px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  text-align:center;
+  overflow:hidden;
+}
+
+button {
+  background-color: #E6FDF8;
+  color: #67732D;
+  font-weight: bold;
+  font-size: 140%;
+  text-transform: uppercase;
+  moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border: 5px solid #45BEFF;
+  padding: 5px;
+  margin-left: 8%;
+}
+
+button:hover {opacity: 0.6; }

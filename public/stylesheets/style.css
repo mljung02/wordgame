@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 3%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #E6FDF8;
 }
@@ -70,6 +70,7 @@ h1 {
   box-sizing: border-box;
   display: inline-block;
   overflow: hidden;
+  text-align:center;
 }
 
 #enter {
@@ -149,4 +150,15 @@ button {
   border: 1px solid black;
   bottom: 0px;
   height: 20px;
+  width: 90%;
+  text-align: center;
+}
+
+.bonus{
+  display:inline-block;
+  font-size: 200%;
+  margin-left: 4%;
+  padding-top: 15px;
+  vertical-align: top;
+  color: #67732D;
 }
