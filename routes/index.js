@@ -101,6 +101,9 @@ router.post('/login', function (req, res, next) {
         req.session.errors = ['Invalid username and/or password']
         res.redirect('/errors')
       }
+    } else {
+      req.session.errors = ['Invalid username and/or password']
+      res.redirect('/errors') 
     }
   })
 })
