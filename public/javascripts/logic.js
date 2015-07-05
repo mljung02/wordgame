@@ -282,6 +282,7 @@ var fireAway = function(tileDiv, gameState){
   if (tileDiv === '31') {
     bossOneAl.damageCheck(35,105,gameState.fire31[3]);
     for (var i = 0; i < fire[0].children.length; i++) {
+      fire[0].children[i].innerHTML = "";
       fire[0].children[i].style.background = '#E6FDF8';
       toggleTile(fire[0].children[i]);
     }
@@ -289,6 +290,7 @@ var fireAway = function(tileDiv, gameState){
   if (tileDiv === '41') {
     bossOneAl.damageCheck(175,140,gameState.fire41[4]);
     for (var i = 0; i < fire[1].children.length; i++) {
+      fire[1].children[i].innerHTML = "";
       fire[1].children[i].style.background = '#E6FDF8';
       toggleTile(fire[1].children[i]);
     }
@@ -296,6 +298,7 @@ var fireAway = function(tileDiv, gameState){
   if (tileDiv === '50') {
     bossOneAl.damageCheck(350,175,gameState.fire50[5]);
     for (var i = 0; i < fire[2].children.length; i++) {
+      fire[2].children[i].innerHTML = "";
       fire[2].children[i].style.background = '#E6FDF8';
       toggleTile(fire[2].children[i]);
     }
@@ -303,6 +306,7 @@ var fireAway = function(tileDiv, gameState){
   if (tileDiv === '42') {
     bossOneAl.damageCheck(560,140,gameState.fire42[4]);
     for (var i = 0; i < fire[3].children.length; i++) {
+      fire[3].children[i].innerHTML = "";
       fire[3].children[i].style.background = '#E6FDF8';
       toggleTile(fire[3].children[i]);
     }
@@ -310,6 +314,7 @@ var fireAway = function(tileDiv, gameState){
   if (tileDiv === '32') {
     bossOneAl.damageCheck(735,105,gameState.fire32[3]);
     for (var i = 0; i < fire[4].children.length; i++) {
+      fire[4].children[i].innerHTML = "";
       fire[4].children[i].style.background = '#E6FDF8';
       toggleTile(fire[4].children[i]);
     }
