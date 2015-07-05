@@ -21,20 +21,75 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/start', function(req, res, next){
-  res.render('start', req.session);
+  if (req.session.email){
+    alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
+      if (localFunctions.highScoreCheck(record)) {
+        console.log("NEW HIGH SCORE", localFunctions.highScoreCalc(record))
+        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record))
+      }
+      if (record.gameState.phase === 1) {
+        res.render('start', record)
+      }
+      else if (record.gameState.phase === 2){
+        res.redirect('/buy')
+      }
+      else {
+        res.redirect('/level2')
+      }
+    })
+  } else {
+    res.redirect('/')
+  }
 })
 
 router.get('/level2', function (req, res, next) {
-  res.render('level2', req.session);
+  if (req.session.email){
+    alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
+      if (localFunctions.highScoreCheck(record)) {
+        console.log("NEW HIGH SCORE", localFunctions.highScoreCalc(record))
+        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record))
+      }
+      if (record.gameState.phase === 1) {
+        res.redirect('/start')
+      }
+      else if (record.gameState.phase === 2){
+        res.redirect('/buy')
+      }
+      else {
+        req.session.level = record.gameState.level;
+        res.render('level2', record)
+      }
+    })
+  }
+  else {
+    res.redirect('/');
+  }
 })
 
 router.get('/buy', function (req, res, next) {
-  console.log(req.session)
-  res.render('buy', req.session);
+  if (req.session.email) {
+    alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
+      if (localFunctions.highScoreCheck(record)) {
+        console.log("NEW HIGH SCORE", localFunctions.highScoreCalc(record))
+        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record))
+      }
+      if (record.gameState.phase === 1) {
+        res.redirect('/start')
+      }
+      else if (record.gameState.phase === 2){
+        res.render('buy', record);
+      }
+      else {
+        res.redirect('/level2')
+      }
+    })
+  }
+  else {
+    res.redirect('/')
+  }
 })
 
 router.post('/login', function (req, res, next) {
-  console.log(req.body.email)
   alphabotsUsers.findOne({email: req.body.email}, function (err, record) {
     console.log(record)
     if (record != null) {
@@ -64,7 +119,10 @@ router.post('/signup', function (req, res, next) {
         res.redirect('/errors');
       }
       else{
-        alphabotsUsers.insert({email: req.body.email, pw: hash});
+        var master = {email: req.body.email, pw: hash};
+        master.gameState = localFunctions.emptyGame()
+        alphabotsUsers.insert(master);
+        req.session.email = req.body.email
         res.redirect('/');
       } 
     })

@@ -63,6 +63,7 @@ var Robot = function Robot(options) {
 	this.ypos = options.ypos || 230,
 	this.direction = 1;
 	this.dirIndex = 0;
+  this.speed = options.speed || 1;
 	
 	//Passed attributes
 	this.health = this.maxHealth = options.maxHealth;
@@ -73,6 +74,7 @@ var Robot = function Robot(options) {
 	this.width = options.width;
 	this.height = options.height;
 	this.image = options.image;
+  this.gameState = options.gameState;
 	
 }
 
@@ -121,29 +123,30 @@ Robot.prototype.update = function update(){
 		this.dirIndex += this.direction;
 		this.direction *= -1;
 	}
-	this.xpos += 1 * this.direction;		
+	this.xpos += this.speed * this.direction;		
 }
 
-Robot.prototype.damageCheck = function damageCheck(xFire,widthFire){
+Robot.prototype.damageCheck = function damageCheck(xFire,widthFire,damage){
 	if (	(this.xpos >= xFire && this.xpos <= xFire + widthFire) || 
-				(this.xpos + this.width > xFire && this.xpos + this.width < xFire + widthFire)) {
-		this.context.fillStyle = 'red'
-		this.context.fillRect(175+(220*(this.maxHealth - this.health)),39,220,12)
-		this.health--
+				(this.xpos + this.width[this.dirIndex][this.frameIndex] > xFire && this.xpos + this.width[this.dirIndex][this.frameIndex] < xFire + widthFire)) {
+		this.context.fillStyle = 'red';
+		this.context.fillRect(175+((660/this.maxHealth)*(this.maxHealth - this.health)),39,(660/this.maxHealth)*damage,12);
+		this.health -= damage;
 		console.log(this.health, " health remaining");
 
 		hitBox(xFire, widthFire)
 		
 		if (this.health <= 0) {
-			this.defeat();
+			this.victory();
 		}
 	}
 	else (
-		console.log('Miss!')
+		console.log(this.xpos, this.width[this.dirIndex][this.frameIndex], xFire, widthFire, 'MISS!!!')
 	)
 }
 
-Robot.prototype.defeat = function defeat(){
+Robot.prototype.victory = function victory(){
+  gg = true;
 	stop();
 	this.stand();
 	speechFloat(this.xpos, 90);
@@ -157,7 +160,9 @@ Robot.prototype.defeat = function defeat(){
     this.context.fillStyle = "black";
     this.context.font = "bold 80px Arial";
     this.context.fillText("Victory!",300,160)
+    levelUp();
   }, 2000)
+
 }
 
 Robot.prototype.stand = function stand(){
@@ -182,5 +187,5 @@ Robot.prototype.gameOver = function gameOver(){
 	this.stand()
 	this.context.fillStyle = "black";
 	this.context.font = "bold 100px Arial";
-	this.context.fillText("GAME OVER",100,140)
+	this.context.fillText("GAME OVER",100,140);
 }

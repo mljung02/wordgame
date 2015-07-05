@@ -1,14 +1,14 @@
 doctype html
 html
   head
-    title Level 2
+    title Level #{gameState.level} Phase #{gameState.phase}
     link(rel='stylesheet' href="/stylesheets/other.css")
     script(src='/javascripts/helpers.js')
     script(src="/javascripts/dictionary.js")
     script(src="/javascripts/alphabetDistribution.js")
     script(src='/javascripts/logic.js')
   body
-    h2 Help Al fill his language modules before his energy is depleted!
+    h2 Help the Robot Fill its Language Modules!
     div#timer
     canvas#bcanvas
     canvas#canvas
@@ -16,7 +16,7 @@ html
       div.spacer
       
       // 3 letter 1
-      div.fire#fire31
+      div.fire#fire311
         div.tiles-inactive(id="3.1.1")
         div.tiles-inactive(id="3.1.2")
         div.tiles-inactive(id="3.1.3")
@@ -24,7 +24,7 @@ html
       div.spacer
       
       // 4 letter 2
-      div.fire#fire41
+      div.fire#fire411
         div.tiles-inactive(id="4.1.1")
         div.tiles-inactive(id="4.1.2")
         div.tiles-inactive(id="4.1.3")
@@ -33,7 +33,7 @@ html
       div.spacer
       
       //5 letter
-      div.fire#fire50
+      div.fire#fire501
         div.tiles-inactive(id="5.0.1")
         div.tiles-inactive(id="5.0.2")
         div.tiles-inactive(id="5.0.3")
@@ -43,7 +43,7 @@ html
       div.spacer
       
       // 4 letter 2
-      div.fire#fire42
+      div.fire#fire421
         div.tiles-inactive(id="4.2.1")
         div.tiles-inactive(id="4.2.2")
         div.tiles-inactive(id="4.2.3")
@@ -52,14 +52,28 @@ html
       div.spacer
       
       // 3 letter 2
-      div.fire#fire32
+      div.fire#fire321
         div.tiles-inactive(id="3.2.1")
         div.tiles-inactive(id="3.2.2")
         div.tiles-inactive(id="3.2.3")
-      
-      if email
-        div#login Logged in as #{email}
-          span | 
-          a(href='/logout') Log Out
+      div#upgrades
+        div.spacer
+        div.up#u31= gameState.fire31[3]
+        div.spacer
+        div.up#u41= gameState.fire41[4]
+        div.spacer
+        div.up#u50= gameState.fire50[5]
+        div.spacer
+        div.up#u42= gameState.fire42[4]
+        div.spacer
+        div.up#u32= gameState.fire32[3]
+    div
+      button(type='button' id='next') Continue
+    if email
+      div#login Logged in as #{email}
+        span | Level #{gameState.level} | Phase #{gameState.phase} | 
+        a.black(href='/logout') Log Out
+        span  | 
+        a.black(href='/') Home
     
     script(src='/javascripts/play.js')

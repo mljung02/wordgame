@@ -7,16 +7,22 @@ var tiles = document.getElementsByClassName('tiles');
 var tileSpace = document.getElementById('under');
 var fire = document.getElementsByClassName('fire');
 var requestId;
-var rollTime = 3000;
-var gameTime = 120;
+var rollTime = 2500;
 var tileInterval = setInterval(tileRoll, rollTime);
 var timer = document.getElementById('timer');
+var next = document.getElementById('next');
+var upgrades = document.getElementsByClassName('up');
+var gg = false;
 
 bcanvas.width = 875;
 canvas.width = 875;
 bcanvas.height = 300;
 canvas.height = 300;
 
+var xhrreq = new XMLHttpRequest;
+xhrreq.open('get', '/update', false)
+xhrreq.send(null);
+var gameState = JSON.parse(xhrreq.response).gameState
 
 var bossOne = new Image();
 bossOne.src = '/images/levelone.png'
@@ -34,8 +40,12 @@ var bossOneAlObj = {
 	image: bossOne,
 	numberOfFrames: 3,
 	ticksPerFrame: 8,
-	maxHealth: 3,
+	maxHealth: 1 + gameState.level,
+	speed: 1 + ((gameState.level - 1)/4)
 }
+
+
+var gameTime = 120 - ((gameState.level -1)*5);
 
 //Health Bars
 ctx.fillStyle = "green";
@@ -49,40 +59,50 @@ ctx.strokeStyle= "red";
 ctx.rect(175,39,660,12);
 ctx.stroke();
 
-
-// context.fillRect(0, 300, 9)
+//Boss Initialization
 var bossOneAl =	new Robot(bossOneAlObj)
 
+//game
 function gameLoop () {
 	
 	bossOneAl.update();
 	bossOneAl.render();
-  requestId = window.requestAnimationFrame(gameLoop, canvas);
+	requestId = window.requestAnimationFrame(gameLoop, canvas);
 	// setTimeout(gameLoop, 100)
 }
+
 
 
 var xhr = new XMLHttpRequest;
 xhr.open('get', '/update', 'true')
 xhr.addEventListener('load', function () {
 	var gameState = JSON.parse(xhr.response).gameState
-	console.log(gameState)
 	decodeGameState(gameState)
-	tileRoll();
+	
 	setTimeout(function () {
 		document.body.addEventListener('load', tileInterval);
 		heart.addEventListener('load', energyLoss(gameTime));
 		bossOne.addEventListener("load", start());
 		tileSpace.addEventListener('click', function (e) {
 			if (e.target.className === 'tiles' && e.target.style.background === 'purple'){
-				console.log(sortTile(e.target.id))
-				fireAway(sortTile(e.target.id))
+				fireAway(sortTile(e.target.id), gameState)
 			}
 			else if (e.target.className === 'tiles' && e.target.style.background != 'purple') {
 				toggleTile(e.target);
 			}
 		})
 	}, 5000)
+	next.addEventListener('click', function () {
+		var xhr2 = new XMLHttpRequest;
+    xhr2.open('post', '/update', 'true')
+    xhr2.addEventListener('load', function () {
+      location.href = "/start"
+    })
+    xhr2.setRequestHeader('Content-type','application/json');
+    gameState.phase = 1;
+		gameState.level++
+    xhr2.send(JSON.stringify(gameState));
+	})
 })
 xhr.send()
 

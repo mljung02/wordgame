@@ -162,3 +162,11 @@ button {
   vertical-align: top;
   color: #67732D;
 }
+
+a.black {
+  color:black;
+}
+
+a.black:hover {
+  opacity: 0.7;
+}

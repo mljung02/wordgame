@@ -31,14 +31,51 @@ module.exports = {
 
   emptyGame: function () {
     var gameState = {}
-    gameState.fire31 = [0,0,0,1]
-    gameState.fire32 = [0,0,0,1]
-    gameState.fire41 = [0,0,0,0,1]
-    gameState.fire42 = [0,0,0,0,1]
-    gameState.fire50 = [0,0,0,0,0,1]
+    gameState.fire31 = [0,0,0,0]
+    gameState.fire32 = [0,0,0,0]
+    gameState.fire41 = [0,0,0,0,0]
+    gameState.fire42 = [0,0,0,0,0]
+    gameState.fire50 = [0,0,0,0,0,0]
     gameState.scrap = 0;
+    gameState.totalScrap = 0;
     gameState.level = 1;
     gameState.phase = 1;
+    gameState.timeBonus = 0;
+    gameState.energyBonus = 0;
     return gameState
+  },
+  
+  highScoreCalc: function (record) {
+    if (!record.highScore) {
+      record.highScore = {};
+      record.highScore.level = record.gameState.level;
+      record.highScore.scrap = record.gameState.totalScrap;
+      return record
+    }
+    if (record.gameState.level > record.highScore.level) {
+      console.log('level higher')
+      record.highScore.level = record.gameState.level;
+      record.highScore.scrap = record.gameState.totalScrap;
+      return record
+    }
+    if (record.gameState.level === record.highScore.level && record.gameState.totalScrap > record.highScore.scrap) {
+      console.log('scrap higher')
+      record.highScore.scrap = record.gameState.totalScrap;
+      return record
+    }
+    return record;
+  },
+  
+  highScoreCheck: function (record) {
+    if (!record.highScore) {
+      return true
+    }
+    if (record.gameState.level > record.highScore.level) {
+      return true
+    }
+    if (record.gameState.level === record.highScore.level && record.gameState.totalScrap > record.highScore.scrap) {
+      return true
+    }
+    return false
   }
 }

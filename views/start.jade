@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1#next Collect Scrap to Create Learning Modules.
+  h1#next Collect Scrap to Create Language Modules.
 
   div.wordbox(id="letters")
   div.spacer
@@ -16,15 +16,17 @@ block content
       div(id="timer")
       button.hovered(type="button" id="clear") Trash
     p
-    div.score(id='score') 0
-    div.bonus 0
+    div.score(id='score')= gameState.scrap
+    div.bonus
     p
     div.enter
     
   if email
     div#login Logged in as #{email}
-      span | 
-      a(href='/logout') Log Out
+      span | Level #{gameState.level} | Phase #{gameState.phase} | 
+      a.black(href='/logout') Log Out
+      span  | 
+      a.black(href='/') Home
     
   
   

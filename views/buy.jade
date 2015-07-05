@@ -64,10 +64,23 @@ html
         div.tiles-inactive(id="3.2.2")
         div.tiles-inactive(id="3.2.3")
     
+    div#upgrades
+      div.spacer
+      div.up#u31= gameState.fire31[3]
+      div.spacer
+      div.up#u41= gameState.fire41[4]
+      div.spacer
+      div.up#u50= gameState.fire50[5]
+      div.spacer
+      div.up#u42= gameState.fire42[4]
+      div.spacer
+      div.up#u32= gameState.fire32[3]
+      
     if email
       div#login Logged in as #{email}
-        span | 
-        a(href='/logout') Log Out
-    
+        span | Level #{gameState.level} | Phase #{gameState.phase} | 
+        a.black(href='/logout') Log Out
+        span  | 
+        a.black(href='/') Home
     
     script(src='/javascripts/buy.js')

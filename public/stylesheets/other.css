@@ -71,3 +71,57 @@ body {
   width: 90%;
   text-align: center;
 }
+
+button {
+  background-color: #E6FDF8;
+  color: #67732D;
+  font-weight: bold;
+  font-size: 150%;
+  text-transform: uppercase;
+  moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border: 5px solid #45BEFF;
+  padding: 5px;
+}
+
+button:hover {opacity: 0.6; }
+
+#next {
+  margin-top: 10px;
+  margin-left: 370px;
+  display: none;
+}
+
+a.black {
+  color:black;
+}
+
+a.black:hover {
+  opacity: 0.7;
+}
+
+.up {
+  text-align: center;
+  display: inline-block;
+  overflow:hidden;
+}
+
+#u31 {
+  width: 105px;
+}
+
+#u50 {
+  width: 175px;
+}
+
+#u41 {
+  width: 140px;
+}
+
+#u42 {
+  width: 140px;
+}
+
+#u32 {
+  width: 105px;
+}

@@ -6,6 +6,7 @@ var tileSpace = document.getElementById('under');
 var fire = document.getElementsByClassName('fire');
 var score = document.getElementsByClassName('score')[0];
 var next = document.getElementById('next');
+var upgrades = document.getElementsByClassName('up');
 
 bcanvas.width = 875;
 canvas.width = 875;
@@ -17,33 +18,40 @@ canvas.height = 300;
 
 ctx.fillStyle = "black";
 ctx.font = "bold 24px Arial";
-ctx.fillText("600", 65, 295);
+ctx.fillText("500", 65, 295);
 
 //4.1
-ctx.fillText("500", 225, 295);
+ctx.fillText("400", 225, 295);
 
 //5.0
-ctx.fillText("400", 415, 295);
+ctx.fillText("300", 415, 295);
 
 //4.2
-ctx.fillText("500", 610, 295)
+ctx.fillText("400", 610, 295)
 
 //3.2
-ctx.fillText("600", 765, 295);
+ctx.fillText("500", 765, 295);
 
 var xhr = new XMLHttpRequest;
 xhr.open('get', '/update', 'true');
 xhr.addEventListener('load', function () {
   var gameState = JSON.parse(xhr.response).gameState
   var scrap = gameState.scrap;
+  score.innerHTML = gameState.scrap;
+  decodeGameState(gameState);
   console.log(gameState);
   tileSpace.addEventListener('click', function (e) {
     console.log(sortTile(e.target.id))
+    if (e.target.className === 'tiles') {
+      gameState = upgradeTileSet(sortTile(e.target.id), gameState);
+      score.innerHTML = gameState.scrap;
+    }
   	if (e.target.className === 'tiles-inactive'){
   		gameState = buyTileSet(sortTile(e.target.id), gameState);
       console.log(gameState, "updated")
       score.innerHTML = gameState.scrap;
   	}
+    decodeGameState(gameState);
   })
   next.addEventListener('click', function () {
     var xhr2 = new XMLHttpRequest;
@@ -53,7 +61,7 @@ xhr.addEventListener('load', function () {
       location.href = "/level2"
     })
     xhr2.setRequestHeader('Content-type','application/json');
-    console.log(gameState);
+    gameState.phase = 3;
     xhr2.send(JSON.stringify(gameState));
   })
 })

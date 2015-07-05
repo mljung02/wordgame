@@ -8,18 +8,21 @@ block content
       form(method='post' action='/login')
         p
           label(for='username') Username (e-mail):
-          input(type='email' id='username' name='email')
+          input(type='email' id='username' name='email' required)
         p
           label(for='password') Password:
-          input(type='password' id='username' name='pw')
+          input(type='password' id='username' name='pw' required)
         button(type='submit') Log In
   if (email)
     p Welcome #{email}.
     p 
       a(href='/start') Continue
-      div Level #{gameState.level} with #{gameState.scrap} Scrap
+      div Level #{gameState.level} with #{gameState.scrap} Scrap on Phase #{gameState.phase}
     p
       a(href="/new") New
+    if highScore  
+      p
+        h2 Your High Score: Level #{highScore.level} with #{highScore.scrap} total scrap.
   if email
     div#login Logged in as #{email}
       span | 
