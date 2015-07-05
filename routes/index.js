@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db = require('monk')(process.env.MONGOLABS_URI);
+var db = require('monk')(process.env.MONGOLAB_URI);
 var alphabotsUsers = db.get('alphabotsUsers');
 var bcrypt = require('bcryptjs');
 var session = require('cookie-session');
