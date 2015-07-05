@@ -167,4 +167,10 @@ router.get('/new', function (req, res, next) {
   })
 })
 
+router.post('/delete', function (req, res, next) {
+  alphabotsUsers.remove({email: req.session.email}, function () {
+    res.redirect('/')
+  })
+})
+
 module.exports = router;

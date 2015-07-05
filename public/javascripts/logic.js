@@ -63,7 +63,7 @@ var generate = function(){
   for (var i = 0; i < letterGen; i++) {
     var letter = document.createElement('div');
     letter.className = "letter"
-    letter.innerHTML = randomWeightedLetter();
+    letter.innerHTML = randomWeightedLetter().toUpperCase();
     letters.appendChild(letter);
   }
 }

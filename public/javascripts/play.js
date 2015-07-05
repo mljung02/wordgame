@@ -6,9 +6,9 @@ var ctx = bcanvas.getContext('2d')
 var tiles = document.getElementsByClassName('tiles');
 var tileSpace = document.getElementById('under');
 var fire = document.getElementsByClassName('fire');
-var requestId;
+var tileInterval,
+		requestId;
 var rollTime = 2500;
-var tileInterval = setInterval(tileRoll, rollTime);
 var timer = document.getElementById('timer');
 var next = document.getElementById('next');
 var upgrades = document.getElementsByClassName('up');
@@ -78,9 +78,11 @@ xhr.open('get', '/update', 'true')
 xhr.addEventListener('load', function () {
 	var gameState = JSON.parse(xhr.response).gameState
 	decodeGameState(gameState)
-	
 	setTimeout(function () {
-		document.body.addEventListener('load', tileInterval);
+		tileInterval = setInterval(tileRoll, rollTime);
+	},2500)
+	setTimeout(function () {
+		// document.body.addEventListener('load', tileInterval);
 		heart.addEventListener('load', energyLoss(gameTime));
 		bossOne.addEventListener("load", start());
 		tileSpace.addEventListener('click', function (e) {

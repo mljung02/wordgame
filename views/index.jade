@@ -17,12 +17,16 @@ block content
     p Welcome #{email}.
     p 
       a(href='/start') Continue
-      div Level #{gameState.level} with #{gameState.scrap} Scrap on Phase #{gameState.phase}
+      span  | Level #{gameState.level} with #{gameState.scrap} Scrap on Phase #{gameState.phase}
     p
-      a(href="/new") New
+      a(href="/new") New Game
+      span  | Warning: This will delete any current game data.
     if highScore  
       p
         h2 Your High Score: Level #{highScore.level} with #{highScore.scrap} total scrap.
+    p
+      form(action='/delete' method='post')
+        button(type='submit') DELETE MY ACCOUNT
   if email
     div#login Logged in as #{email}
       span | 
