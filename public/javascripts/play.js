@@ -40,7 +40,7 @@ var bossOneAlObj = {
 	image: bossOne,
 	numberOfFrames: 3,
 	ticksPerFrame: 8,
-	maxHealth: 1 + gameState.level,
+	maxHealth: 2 + gameState.level,
 	speed: 1 + ((gameState.level - 1)/4)
 }
 
