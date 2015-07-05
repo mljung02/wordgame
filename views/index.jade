@@ -26,7 +26,7 @@ block content
         h2 Your High Score: Level #{highScore.level} with #{highScore.scrap} total scrap.
     p
       form(action='/delete' method='post')
-        button(type='submit') DELETE MY ACCOUNT
+        button#delete(type='submit') DELETE MY ACCOUNT
   if email
     div#login Logged in as #{email}
       span | 
