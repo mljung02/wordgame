@@ -35,7 +35,7 @@ h1 {
 }
 
 .word {
-  font-size: 300%;
+  font-size: 200%;
   margin-left: 5%;
   background: #8EA371;
   width: 50%;
@@ -45,7 +45,7 @@ h1 {
   display: inline-block;
   border-radius: 25px;
   border: 2px solid black;
-  padding:9px;
+  padding:16px;
   /*padding-left: 10px;
   padding-right: 10px;*/
   overflow: hidden;
@@ -192,6 +192,6 @@ button:hover {
 }
 
 img {
-  height: 400px;
+  height: 300px;
   width: 60%
 }
