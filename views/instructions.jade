@@ -1,4 +1,16 @@
 extends layout
 
 block content
-  img(src='')
+  p Collect Scrap Phase (1)
+  div
+    img(src='/images/collectscrap.png')
+  p Build Phase (2)
+  div
+    img(src='/images/levelbuy.png')
+  p Inject Language Mudules Phase (3)
+  div
+    img(src='/images/languagephase.png')
+  if email
+    div#login Logged in as #{email}
+      span | 
+      a(href='/logout') Log Out  

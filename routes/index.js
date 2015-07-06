@@ -174,4 +174,8 @@ router.post('/delete', function (req, res, next) {
   })
 })
 
+router.get('/instructions', function (req, res, next) {
+  res.render('instructions', req.session)
+})
+
 module.exports = router;

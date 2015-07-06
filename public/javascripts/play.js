@@ -11,7 +11,7 @@ var tileInterval,
 var rollTime = 2500;
 var timer = document.getElementById('timer');
 var next = document.getElementById('next');
-var gameOver = document.getElementById('gameOver');
+var gameover = document.getElementById('gameover');
 var upgrades = document.getElementsByClassName('up');
 var gg = false;
 
@@ -41,7 +41,7 @@ var bossOneAlObj = {
 	image: bossOne,
 	numberOfFrames: 3,
 	ticksPerFrame: 8,
-	maxHealth: 2 + gameState.level,
+	maxHealth: 1 + (Math.pow(2, gameState.level)),
 	speed: 1 + ((gameState.level - 1)/4)
 }
 
@@ -99,7 +99,7 @@ xhr.addEventListener('load', function () {
 		location.href = "/start"
 	})
 	gameover.addEventListener('click', function () {
-		location.href= "/gameover"
+		location.href= "/"
 	})
 })
 xhr.send()

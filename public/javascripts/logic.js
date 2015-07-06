@@ -461,7 +461,7 @@ var upgradeTileSet = function(tileDiv, gameState) {
 }
 
 var revealGameOver = function () {
-  gameOver.style.display = 'block';
+  gameover.style.display = 'block';
 }
 
 var emptyGame = function () {

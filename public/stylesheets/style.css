@@ -190,3 +190,8 @@ button:hover {
   padding: 2%;
   font-size: 150%;
 }
+
+img {
+  height: 400px;
+  width: 60%
+}
