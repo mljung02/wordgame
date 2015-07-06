@@ -10,7 +10,11 @@ block content
   p Inject Language Mudules Phase (3)
   div
     img(src='/images/languagephase.png')
+  p
+    a(href='/') HOME
   if email
     div#login Logged in as #{email}
       span | 
-      a(href='/logout') Log Out  
+      a.black(href='/logout') Log Out
+      span  | 
+      a.black(href='/') Home 
