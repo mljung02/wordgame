@@ -92,6 +92,12 @@ button:hover {opacity: 0.6; }
   display: none;
 }
 
+#gameover {
+  margin-top: 10px;
+  margin-left: 370px;
+  display: none;
+}
+
 a.black {
   color:black;
 }

@@ -460,3 +460,7 @@ var upgradeTileSet = function(tileDiv, gameState) {
   }
   return gameState;
 }
+
+var revealGameOver = function () {
+  gameOver.style.display = 'block';
+}

@@ -11,11 +11,10 @@ router.get('/', function(req, res, next) {
   if (req.session.email){
     alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
       console.log(record, '-----inside find');
-      res.render('index', record)
+      res.render('index', record);
     })
   }
   else {
-    console.log('outside find')
     res.render('index', req.session);
   }
 });
@@ -24,21 +23,20 @@ router.get('/start', function(req, res, next){
   if (req.session.email){
     alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
       if (localFunctions.highScoreCheck(record)) {
-        console.log("NEW HIGH SCORE", localFunctions.highScoreCalc(record))
-        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record))
+        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record));
       }
       if (record.gameState.phase === 1) {
-        res.render('start', record)
+        res.render('start', record);
       }
       else if (record.gameState.phase === 2){
-        res.redirect('/buy')
+        res.redirect('/buy');
       }
       else {
-        res.redirect('/level2')
+        res.redirect('/level2');
       }
     })
   } else {
-    res.redirect('/')
+    res.redirect('/');
   }
 })
 
@@ -46,18 +44,17 @@ router.get('/level2', function (req, res, next) {
   if (req.session.email){
     alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
       if (localFunctions.highScoreCheck(record)) {
-        console.log("NEW HIGH SCORE", localFunctions.highScoreCalc(record))
-        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record))
+        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record));
       }
       if (record.gameState.phase === 1) {
-        res.redirect('/start')
+        res.redirect('/start');
       }
       else if (record.gameState.phase === 2){
-        res.redirect('/buy')
+        res.redirect('/buy');
       }
       else {
         req.session.level = record.gameState.level;
-        res.render('level2', record)
+        res.render('level2', record);
       }
     })
   }
@@ -70,40 +67,38 @@ router.get('/buy', function (req, res, next) {
   if (req.session.email) {
     alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
       if (localFunctions.highScoreCheck(record)) {
-        console.log("NEW HIGH SCORE", localFunctions.highScoreCalc(record))
-        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record))
+        alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record));
       }
       if (record.gameState.phase === 1) {
-        res.redirect('/start')
+        res.redirect('/start');
       }
       else if (record.gameState.phase === 2){
         res.render('buy', record);
       }
       else {
-        res.redirect('/level2')
+        res.redirect('/level2');
       }
     })
   }
   else {
-    res.redirect('/')
+    res.redirect('/');
   }
 })
 
 router.post('/login', function (req, res, next) {
   alphabotsUsers.findOne({email: req.body.email}, function (err, record) {
-    console.log(record)
     if (record != null) {
       if(bcrypt.compareSync(req.body.pw, record.pw)){
         req.session.email = req.body.email;
         req,session.errors = [];
         res.redirect('/');
       } else {
-        req.session.errors = ['Invalid username and/or password']
-        res.redirect('/errors')
+        req.session.errors = ['Invalid username and/or password'];
+        res.redirect('/errors');
       }
     } else {
-      req.session.errors = ['Invalid username and/or password']
-      res.redirect('/errors') 
+      req.session.errors = ['Invalid username and/or password'];
+      res.redirect('/errors');
     }
   })
 })
@@ -123,22 +118,21 @@ router.post('/signup', function (req, res, next) {
       }
       else{
         var master = {email: req.body.email, pw: hash};
-        master.gameState = localFunctions.emptyGame()
+        master.gameState = localFunctions.emptyGame();
         alphabotsUsers.insert(master);
-        req.session.email = req.body.email
+        req.session.email = req.body.email;
         res.redirect('/');
       } 
     })
   }
   else{
-    console.log('this one')
-    req.session.errors = ['Passwords do not match']
-    res.redirect('/errors')
+    req.session.errors = ['Passwords do not match'];
+    res.redirect('/errors');
   }
 })
 
 router.get('/errors', function (req, res, next) {
-  res.render('erroralpha', req.session)
+  res.render('erroralpha', req.session);
 })
 
 router.get('/logout', function (req, res, next) {
@@ -150,7 +144,7 @@ router.post('/update', function (req, res, next) {
   console.log(req.session.email, req.body)
   alphabotsUsers.update({email: req.session.email}, {$set: {gameState: req.body}}, function (err,record) {
     req.session.scrap = req.body.scrap;
-    res.send(req.body.scrap + " scrap recorded.")
+    res.send(req.body.scrap + " scrap recorded.");
   })
 })
 
@@ -162,14 +156,21 @@ router.get('/update', function (req, res, next) {
 
 router.get('/new', function (req, res, next) {
   alphabotsUsers.update({email: req.session.email}, {$set: {gameState: localFunctions.emptyGame()}}, function(err,record){
-    console.log(record)
-    res.redirect('/start')
+    console.log(record);
+    res.redirect('/start');
   })
 })
 
+router.get('/gameover', function (req, res, next) {
+  alphabotsUsers.update({email: req.session.email}, {$set: {gameState: localFunctions.emptyGame()}}, function(err,record){
+    console.log(record);
+    res.redirect('/');
+  })
+});
+
 router.post('/delete', function (req, res, next) {
   alphabotsUsers.remove({email: req.session.email}, function () {
-    res.redirect('/')
+    res.redirect('/');
   })
 })
 

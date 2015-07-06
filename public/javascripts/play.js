@@ -11,6 +11,7 @@ var tileInterval,
 var rollTime = 2500;
 var timer = document.getElementById('timer');
 var next = document.getElementById('next');
+var gameOver = document.getElementById('gameOver');
 var upgrades = document.getElementsByClassName('up');
 var gg = false;
 
@@ -95,15 +96,10 @@ xhr.addEventListener('load', function () {
 		})
 	}, 5000)
 	next.addEventListener('click', function () {
-		var xhr2 = new XMLHttpRequest;
-    xhr2.open('post', '/update', 'true')
-    xhr2.addEventListener('load', function () {
-      location.href = "/start"
-    })
-    xhr2.setRequestHeader('Content-type','application/json');
-    gameState.phase = 1;
-		gameState.level++
-    xhr2.send(JSON.stringify(gameState));
+		location.href = "/start"
+	})
+	gameover.addEventListener('click', function () {
+		location.href= "/gameover"
 	})
 })
 xhr.send()

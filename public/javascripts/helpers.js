@@ -156,6 +156,12 @@ Robot.prototype.victory = function victory(){
 	this.context.fillText("my friend?", this.xpos-5, 135);
 	clearInterval(tileInterval);
   clearInterval(timerDown);
+  var xhr2 = new XMLHttpRequest;
+  xhr2.open('post', '/update', 'true')
+  xhr2.setRequestHeader('Content-type','application/json');
+  gameState.phase = 1;
+  gameState.level++
+  xhr2.send(JSON.stringify(gameState));
   setTimeout(function () {
     this.context.fillStyle = "black";
     this.context.font = "bold 80px Arial";
