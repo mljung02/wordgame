@@ -8,9 +8,11 @@ block content
       form(method='post' action='/login')
         p
           label(for='username') Username (e-mail):
+        p
           input(type='email' id='username' name='email' required)
         p
           label(for='password') Password:
+        p
           input(type='password' id='username' name='pw' required)
         button(type='submit') Log In
   if (email)
