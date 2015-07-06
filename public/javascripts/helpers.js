@@ -168,7 +168,6 @@ Robot.prototype.victory = function victory(){
     this.context.fillText("Victory!",300,160)
     levelUp();
   }, 2000)
-
 }
 
 Robot.prototype.stand = function stand(){
@@ -194,4 +193,10 @@ Robot.prototype.gameOver = function gameOver(){
 	this.context.fillStyle = "black";
 	this.context.font = "bold 100px Arial";
 	this.context.fillText("GAME OVER",100,140);
+  var xhr2 = new XMLHttpRequest;
+  xhr2.open('post', '/update', 'true')
+  xhr2.setRequestHeader('Content-type','application/json');
+  gameState = emptyGame()
+  xhr2.send(JSON.stringify(gameState));
+  revealGameOver();
 }

@@ -175,6 +175,18 @@ button:hover {
   opacity: 0.6;
 }
 
-#delete {
-  float: right;
+.left {
+  display: inline-block;
+  width:60%;
+  overflow:hidden;
+  box-sizing: border-box;  
+}
+
+.right {
+  float:right;
+}
+
+#instructions {
+  padding: 2%;
+  font-size: 150%;
 }

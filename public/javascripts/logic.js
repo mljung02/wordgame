@@ -463,3 +463,19 @@ var upgradeTileSet = function(tileDiv, gameState) {
 var revealGameOver = function () {
   gameOver.style.display = 'block';
 }
+
+emptyGame: function () {
+  var gameState = {}
+  gameState.fire31 = [0,0,0,0]
+  gameState.fire32 = [0,0,0,0]
+  gameState.fire41 = [0,0,0,0,0]
+  gameState.fire42 = [0,0,0,0,0]
+  gameState.fire50 = [0,0,0,0,0,0]
+  gameState.scrap = 0;
+  gameState.totalScrap = 0;
+  gameState.level = 1;
+  gameState.phase = 1;
+  gameState.timeBonus = 0;
+  gameState.energyBonus = 0;
+  return gameState
+}

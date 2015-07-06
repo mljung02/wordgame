@@ -14,19 +14,22 @@ block content
           input(type='password' id='username' name='pw' required)
         button(type='submit') Log In
   if (email)
-    p Welcome #{email}.
-    p 
-      a(href='/start') Continue
-      span  | Level #{gameState.level} with #{gameState.scrap} Scrap on Phase #{gameState.phase}
-    p
-      a(href="/new") New Game
-      span  | Warning: This will delete any current game data.
-    if highScore  
+    div.left
+      p Welcome #{email}.
+      p 
+        a(href='/start') Continue
+        span  | Level #{gameState.level} with #{gameState.scrap} Scrap on Phase #{gameState.phase}
       p
-        h2 Your High Score: Level #{highScore.level} with #{highScore.scrap} total scrap.
-    p
+        a(href="/new") New Game
+        span  | Warning: This will delete any current game data.
+      if highScore  
+        p
+          h2 Your High Score: Level #{highScore.level} with #{highScore.scrap} total scrap.
+    div.right
       form(action='/delete' method='post')
         button#delete(type='submit') DELETE MY ACCOUNT
+      p
+        a#instructions(href='/instructions') Instructions
   if email
     div#login Logged in as #{email}
       span | 
