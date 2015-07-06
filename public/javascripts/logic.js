@@ -30,7 +30,6 @@ var scoreCalc = function(word) {
 
 //Creates link to buy phase
 var nextLevel = function(gameState){
-  console.log('nl fired')
   var request = new XMLHttpRequest;
   request.open('POST','/update','true');
   request.addEventListener('load', function () {
