@@ -51,10 +51,8 @@ xhr.addEventListener('load', function () {
         score.innerHTML = gameState.scrap;
       }
     }
-  	if (
-      (e.target.className === 'tiles' || 
-      e.target.className === 'tilesc' ||
-      e.target.className === 'tilesv') && parseInt(e.target.id[4]) < 3){
+  	if (e.target.className === 'tiles' || 
+      e.target.className === 'tilesc'){
       console.log(e.target)
       upgradeOneTile(e, sortTile(e.target.id), gameState)
       score.innerHTML = gameState.scrap;
