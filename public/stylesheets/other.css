@@ -34,8 +34,38 @@ body {
   overflow:hidden;
 }
 
+.tilesv{
+  border: 1px solid blue;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
+.tilesc{
+  border: 1px solid brown;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
 .tiles:hover{
   border: 2px solid black;
+}
+
+.tilesv:hover{
+  border: 2px solid blue;
+}
+
+.tilec:hover {
+  border: 2px solid brown;
 }
 
 .tiles-inactive{

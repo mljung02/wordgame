@@ -42,13 +42,21 @@ xhr.addEventListener('load', function () {
   console.log(gameState);
   tileSpace.addEventListener('click', function (e) {
     console.log(sortTile(e.target.id))
-    if (e.target.className === 'tiles') {
-      gameState = upgradeTileSet(sortTile(e.target.id), gameState);
-      score.innerHTML = gameState.scrap;
+    if (e.target.className === 'up') {
+      if (e.target.innerHTML > 0){
+        gameState = upgradeTileSet(sortTile(e.target.id), gameState);
+        score.innerHTML = gameState.scrap;
+      } else {
+        gameState = buyTileSet(sortTile(e.target.id), gameState);
+        score.innerHTML = gameState.scrap;
+      }
     }
-  	if (e.target.className === 'tiles-inactive'){
-  		gameState = buyTileSet(sortTile(e.target.id), gameState);
-      console.log(gameState, "updated")
+  	if (
+      (e.target.className === 'tiles' || 
+      e.target.className === 'tilesc' ||
+      e.target.className === 'tilesv') && parseInt(e.target.id[4]) < 3){
+      console.log(e.target)
+      upgradeOneTile(e, sortTile(e.target.id), gameState)
       score.innerHTML = gameState.scrap;
   	}
     decodeGameState(gameState);
@@ -58,7 +66,7 @@ xhr.addEventListener('load', function () {
     xhr2.open('post', '/update', 'true')
     xhr2.addEventListener('load', function () {
       console.log(xhr2.response);
-      location.href = "/level2"
+      location.href = "/start"
     })
     xhr2.setRequestHeader('Content-type','application/json');
     gameState.phase = 3;

@@ -36,6 +36,39 @@ body {
   overflow:hidden;
 }
 
+.tiles{
+  border: 1px solid black;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
+.tilesv{
+  border: 1px solid blue;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
+.tilesc{
+  border: 1px solid brown;
+  height: 35px;
+  width: 35px;
+  display:inline-block;
+  box-sizing: border-box;
+  text-align:center;
+  font-size:120%;
+  overflow:hidden;
+}
+
 .tiles-inactive{
   border: 1px dotted grey;
   height: 35px;
@@ -47,8 +80,19 @@ body {
   overflow:hidden;
 }
 
-.fire:hover{
-  border: 2px solid black;
+.tiles:hover{
+  border: 3px solid black;
+  cursor: crosshair;
+}
+
+.tilesv:hover{
+  border: 3px solid black;
+  cursor: crosshair;
+}
+
+.tilesc:hover{
+  border: 3px solid black;
+  cursor: crosshair;
 }
 
 .spacer {
@@ -127,6 +171,13 @@ a.black:hover {
   text-align: center;
   display: inline-block;
   overflow:hidden;
+}
+
+.up:hover {
+  border: 1px solid black;
+  moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  cursor: crosshair;
 }
 
 #u31 {

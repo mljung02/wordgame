@@ -35,7 +35,7 @@ var nextLevel = function(gameState){
   request.addEventListener('load', function () {
     next.innerHTML = "";
     var a = document.createElement('a');
-    a.href = '/buy';
+    a.href = '/start';
     a.innerHTML = 'Continue to Buy Phase';
     next.appendChild(a);
     console.log(request.response)
@@ -133,8 +133,35 @@ var clearBoard = function() {
 }
 
 //generates a random letter based on scrabble distribution
-var randomWeightedLetter = function() {
-  return alph[Math.floor(Math.random() * alph.length)]
+var randomWeightedLetter = function(l) {
+  var temp = ''
+  var i = 0
+  if (l === 'v') {
+    while (
+      temp != 'a' && 
+      temp != 'e' &&
+      temp != 'i' &&
+      temp != 'o' &&
+      temp != 'u' &&
+      temp != 'y') {
+      temp = alph[Math.floor(Math.random() * alph.length)]
+    }
+    return temp
+  } else if (l === 'c') {
+    temp = alph[Math.floor(Math.random() * alph.length)]
+    while (
+      temp === 'a' || 
+      temp === 'e' ||
+      temp === 'i' ||
+      temp === 'o' ||
+      temp === 'u'
+      ) {
+      temp = alph[Math.floor(Math.random() * alph.length)]
+    }
+    return temp
+  } else {
+    return alph[Math.floor(Math.random() * alph.length)]
+  }
 }
 
 //rerolls the value of all unlocked tiles
@@ -142,6 +169,16 @@ var tileRoll = function() {
   for (var i = 0; i < tiles.length; i++) {
     if(!tiles[i].id[5]){
       tiles[i].innerHTML = randomWeightedLetter();
+    }
+  }
+  for (var i = 0; i < tilesc.length; i++) {
+    if(!tilesc[i].id[5]){
+      tilesc[i].innerHTML = randomWeightedLetter('c');
+    }
+  }
+  for (var i = 0; i < tilesv.length; i++) {
+    if(!tilesv[i].id[5]){
+      tilesv[i].innerHTML = randomWeightedLetter('v');
     }
   }
 }
@@ -155,7 +192,13 @@ var toggleTile = function (e) {
   }
   else {
     e.id = e.id.substring(0,5);
-    e.style.borderColor = 'black';
+    if (e.className === 'tilesc') {
+      e.style.borderColor = 'brown';
+    } else if (e.className === 'tilesv') {
+      e.style.borderColor = 'blue'
+    } else {
+      e.style.borderColor = 'black'
+    }
   }
   if (checkLock(tileDiv)) {
     activate(tileDiv)
@@ -226,23 +269,23 @@ var checkLock = function (tileDiv) {
 
 var sortTile = function(id) {
   //3.1
-  if (id[0] === '3' && id[2] === '1') {
+  if (id[1] === '3' && id[2] === '1') {
     return '31'
   }
   //3.2
-  else if (id[0] === '3' && id[2] === '2') {
+  else if (id[1] === '3' && id[2] === '2') {
     return '32'
   }
   //4.1
-  else if (id[0] === '4' && id[2] === '1') {
+  else if (id[1] === '4' && id[2] === '1') {
     return '41'
   }
   //4.2
-  else if (id[0] === '4' && id[2] === '2') {
+  else if (id[1] === '4' && id[2] === '2') {
     return '42'
   }
   //5.0
-  else if (id[0] === '5') {
+  else if (id[1] === '5') {
     return '50'
   }
 }
@@ -389,28 +432,28 @@ var buyTileSet = function(tileDiv, gameState) {
 }
 
 var decodeGameState = function (gameState) {
-  console.log(gameState.fire31)
-  if (gameState.fire31[0] === 1) {
+  console.log(gameState.fire50, 'dcs')
+  if (gameState.fire31[3] === 1) {
     for (var i = 0; i < fire[0].children.length; i++) {
       fire[0].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire32[0] === 1) {
+  if (gameState.fire32[3] === 1) {
     for (var i = 0; i < fire[4].children.length; i++) {
       fire[4].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire41[0] === 1) {
+  if (gameState.fire41[4] === 1) {
     for (var i = 0; i < fire[1].children.length; i++) {
       fire[1].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire42[0] === 1) {
+  if (gameState.fire42[4] === 1) {
     for (var i = 0; i < fire[3].children.length; i++) {
       fire[3].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire50[0] === 1) {
+  if (gameState.fire50[5] === 1) {
     for (var i = 0; i < fire[2].children.length; i++) {
       fire[2].children[i].className = 'tiles'
     }
@@ -420,6 +463,56 @@ var decodeGameState = function (gameState) {
   upgrades[2].innerHTML = gameState.fire50[5];
   upgrades[3].innerHTML = gameState.fire42[4];
   upgrades[4].innerHTML = gameState.fire32[3];
+  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+    if (gameState.fire31[i] === 3) {
+      fire[0].children[i].className = 'tilesv';
+    }
+  }
+  for (var i = 0; i < gameState.fire32.length - 1; i++) {
+    if (gameState.fire32[i] === 3) {
+      fire[4].children[i].className = 'tilesv';
+    }
+  }
+  for (var i = 0; i < gameState.fire41.length - 1; i++) {
+    if (gameState.fire41[i] === 3) {
+      fire[1].children[i].className = 'tilesv';
+    }
+  }
+  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+    if (gameState.fire42[i] === 3) {
+      fire[3].children[i].className = 'tilesv';
+    }
+  }
+  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+    if (gameState.fire50[i] === 3) {
+      fire[2].children[i].className = 'tilesv';
+    }
+  }
+  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+    if (gameState.fire31[i] === 2) {
+      fire[0].children[i].className = 'tilesc';
+    }
+  }
+  for (var i = 0; i < gameState.fire32.length - 1; i++) {
+    if (gameState.fire32[i] === 2) {
+      fire[4].children[i].className = 'tilesc';
+    }
+  }
+  for (var i = 0; i < gameState.fire41.length - 1; i++) {
+    if (gameState.fire41[i] === 2) {
+      fire[1].children[i].className = 'tilesc';
+    }
+  }
+  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+    if (gameState.fire42[i] === 2) {
+      fire[3].children[i].className = 'tilesc';
+    }
+  }
+  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+    if (gameState.fire50[i] === 2) {
+      fire[2].children[i].className = 'tilesc';
+    }
+  }
 }
 
 var levelUp = function () {
@@ -478,4 +571,36 @@ var emptyGame = function () {
   gameState.timeBonus = 0;
   gameState.energyBonus = 0;
   return gameState
+}
+
+var upgradeOneTile = function (e, tileDiv, gameState) {
+  var temp = parseInt(e.target.id[4]) + 1;
+  e.target.id = e.target.id.substring(0,4);
+  e.target.id += temp;
+  if (tileDiv === '31' && gameState.scrap >= 300) {
+    gameState.fire31[e.target.id[3]-1]++
+    gameState.scrap -= 300;
+    return gameState;
+  }
+  if (tileDiv === '41' && gameState.scrap >= 300) {
+    gameState.fire41[e.target.id[3]-1]++;
+    gameState.scrap -= 300;
+    return gameState;
+  }
+  if (tileDiv === '50' && gameState.scrap >= 300) {
+    gameState.fire50[e.target.id[3]-1]++;
+    gameState.scrap -= 300;
+    return gameState;
+  }
+  if (tileDiv === '42' && gameState.scrap >= 300) {
+    gameState.fire42[e.target.id[3]-1]++;
+    gameState.scrap -= 300;
+    return gameState;
+  }
+  if (tileDiv === '32' && gameState.scrap >= 300) {
+    gameState.fire32[e.target.id[3]-1]++;
+    gameState.scrap -= 300;
+    return gameState;
+  }
+  return gameState;
 }

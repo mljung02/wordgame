@@ -4,6 +4,8 @@ var bcanvas = document.getElementById('bcanvas');
 var context = canvas.getContext('2d');
 var ctx = bcanvas.getContext('2d')
 var tiles = document.getElementsByClassName('tiles');
+var tilesc = document.getElementsByClassName('tilesc');
+var tilesv = document.getElementsByClassName('tilesv');
 var tileSpace = document.getElementById('under');
 var fire = document.getElementsByClassName('fire');
 var tileInterval,
@@ -87,10 +89,16 @@ xhr.addEventListener('load', function () {
 		heart.addEventListener('load', energyLoss(gameTime));
 		bossOne.addEventListener("load", start());
 		tileSpace.addEventListener('click', function (e) {
-			if (e.target.className === 'tiles' && e.target.style.background === 'purple'){
+			if (
+				(e.target.className === 'tiles' ||
+				e.target.className === 'tilesc' ||
+				e.target.className === 'tilesv') && e.target.style.background === 'purple'){
 				fireAway(sortTile(e.target.id), gameState)
 			}
-			else if (e.target.className === 'tiles' && e.target.style.background != 'purple') {
+			else if (
+				(e.target.className === 'tiles' ||
+				e.target.className === 'tilesc' ||
+				e.target.className === 'tilesv') && e.target.style.background != 'purple') {
 				toggleTile(e.target);
 			}
 		})
