@@ -432,28 +432,28 @@ var buyTileSet = function(tileDiv, gameState) {
 }
 
 var decodeGameState = function (gameState) {
-  console.log(gameState.fire50, 'dcs')
-  if (gameState.fire31[3] === 1) {
+  console.log(gameState.fire31, 'dcs')
+  if (gameState.fire31[3] >= 1) {
     for (var i = 0; i < fire[0].children.length; i++) {
       fire[0].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire32[3] === 1) {
+  if (gameState.fire32[3] >= 1) {
     for (var i = 0; i < fire[4].children.length; i++) {
       fire[4].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire41[4] === 1) {
+  if (gameState.fire41[4] >= 1) {
     for (var i = 0; i < fire[1].children.length; i++) {
       fire[1].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire42[4] === 1) {
+  if (gameState.fire42[4] >= 1) {
     for (var i = 0; i < fire[3].children.length; i++) {
       fire[3].children[i].className = 'tiles'
     }
   }
-  if (gameState.fire50[5] === 1) {
+  if (gameState.fire50[5] >= 1) {
     for (var i = 0; i < fire[2].children.length; i++) {
       fire[2].children[i].className = 'tiles'
     }
