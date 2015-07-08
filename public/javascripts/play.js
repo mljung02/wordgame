@@ -15,7 +15,6 @@ var timer = document.getElementById('timer');
 var next = document.getElementById('next');
 var gameover = document.getElementById('gameover');
 var upgrades = document.getElementsByClassName('up');
-var gg = false;
 
 bcanvas.width = 875;
 canvas.width = 875;
@@ -43,7 +42,7 @@ var bossOneAlObj = {
 	image: bossOne,
 	numberOfFrames: 3,
 	ticksPerFrame: 8,
-	maxHealth: 1 + (Math.pow(2, gameState.level)),
+	maxHealth: 2 + (Math.pow(2, gameState.level) - gameState.level),
 	speed: 1 + ((gameState.level - 1)/4)
 }
 

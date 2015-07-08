@@ -135,39 +135,4 @@ router.get('/start', function(req, res, next){
   })
 })
 
-// router.get('/level2', function (req, res, next) {
-//   alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
-//     if (localFunctions.highScoreCheck(record)) {
-//       alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record));
-//     }
-//     if (record.gameState.phase === 1) {
-//       res.redirect('/start');
-//     }
-//     else if (record.gameState.phase === 2){
-//       res.redirect('/buy');
-//     }
-//     else {
-//       req.session.level = record.gameState.level;
-//       res.render('level2', record);
-//     }
-//   })
-// })
-// 
-// router.get('/buy', function (req, res, next) {
-//   alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
-//     if (localFunctions.highScoreCheck(record)) {
-//       alphabotsUsers.update({email: req.session.email}, localFunctions.highScoreCalc(record));
-//     }
-//     if (record.gameState.phase === 1) {
-//       res.redirect('/start');
-//     }
-//     else if (record.gameState.phase === 2){
-//       res.render('buy', record);
-//     }
-//     else {
-//       res.redirect('/level2');
-//     }
-//   })
-// })
-
 module.exports = router;

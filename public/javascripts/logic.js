@@ -40,7 +40,6 @@ var nextLevel = function(gameState){
     next.appendChild(a);
     console.log(request.response)
   })
-  console.log(score.innerHTML)
   gameState.scrap = parseInt(score.innerHTML);
   gameState.totalScrap += parseInt(score.innerHTML);
   gameState.phase = 2;
@@ -432,7 +431,6 @@ var buyTileSet = function(tileDiv, gameState) {
 }
 
 var decodeGameState = function (gameState) {
-  console.log(gameState.fire31, 'dcs')
   if (gameState.fire31[3] >= 1) {
     for (var i = 0; i < fire[0].children.length; i++) {
       fire[0].children[i].className = 'tiles'
@@ -520,34 +518,34 @@ var levelUp = function () {
 }
 
 var upgradeTileSet = function(tileDiv, gameState) {
-  if (tileDiv === '31' && gameState.scrap >= 500) {
+  if (tileDiv === '31' && gameState.scrap >= costCalc(500, 31, gameState)) {
     fire[0].id += '1';
+    gameState.scrap -= costCalc(500, 31, gameState);
     gameState.fire31[3]++;
-    gameState.scrap -= 500;
     return gameState;
   }
   if (tileDiv === '41' && gameState.scrap >= 400) {
     fire[1].id += '1';
     gameState.fire41[4]++;
-    gameState.scrap -= 400;
+    gameState.scrap -= costCalc(400, 41, gameState);
     return gameState;
   }
   if (tileDiv === '50' && gameState.scrap >= 300) {
     fire[2].id += '1';
     gameState.fire50[5]++;
-    gameState.scrap -= 300;
+    gameState.scrap -= costCalc(300, 50, gameState);
     return gameState;
   }
   if (tileDiv === '42' && gameState.scrap >= 400) {
     fire[3].id += '1';
     gameState.fire42[4]++;
-    gameState.scrap -= 400;
+    gameState.scrap -= costCalc(400, 42, gameState);
     return gameState;
   }
   if (tileDiv === '32' && gameState.scrap >= 500) {
     fire[3].id += '1';
     gameState.fire32[3]++;
-    gameState.scrap -= 500;
+    gameState.scrap -= costCalc(500, 32, gameState);
     return gameState;
   }
   return gameState;
@@ -563,7 +561,7 @@ var emptyGame = function () {
   gameState.fire32 = [0,0,0,0]
   gameState.fire41 = [0,0,0,0,0]
   gameState.fire42 = [0,0,0,0,0]
-  gameState.fire50 = [0,0,0,0,0,0]
+  gameState.fire50 = [1,1,1,1,1,1]
   gameState.scrap = 0;
   gameState.totalScrap = 0;
   gameState.level = 1;
@@ -603,4 +601,27 @@ var upgradeOneTile = function (e, tileDiv, gameState) {
     return gameState;
   }
   return gameState;
+}
+
+var costCalc = function (base, div, gameState) {
+  var fireCode = 'fire' + div
+  return gameState[fireCode][fireCode[4]] * 100 + base
+}
+
+var redrawCost = function (gameState) {
+  ctx.clearRect(0,0,800,300)
+  //3.1
+  ctx.fillText(costCalc(500, 31, gameState), 65, 295);
+
+  //4.1
+  ctx.fillText(costCalc(400, 41, gameState), 225, 295);
+
+  //5.0
+  ctx.fillText(costCalc(300, 50, gameState), 415, 295);
+
+  //4.2
+  ctx.fillText(costCalc(400, 42, gameState), 610, 295)
+
+  //3.2
+  ctx.fillText(costCalc(400, 32, gameState), 765, 295);
 }

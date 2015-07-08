@@ -14,23 +14,7 @@ bcanvas.height = 300;
 canvas.height = 300;
 
 //prices
-//3.1
 
-ctx.fillStyle = "black";
-ctx.font = "bold 24px Arial";
-ctx.fillText("500", 65, 295);
-
-//4.1
-ctx.fillText("400", 225, 295);
-
-//5.0
-ctx.fillText("300", 415, 295);
-
-//4.2
-ctx.fillText("400", 610, 295)
-
-//3.2
-ctx.fillText("500", 765, 295);
 
 var xhr = new XMLHttpRequest;
 xhr.open('get', '/update', 'true');
@@ -40,8 +24,23 @@ xhr.addEventListener('load', function () {
   score.innerHTML = gameState.scrap;
   decodeGameState(gameState);
   console.log(gameState);
+  ctx.fillStyle = "black";
+  ctx.font = "bold 24px Arial";
+  //3.1
+  ctx.fillText(costCalc(500, 31, gameState), 65, 295);
+
+  //4.1
+  ctx.fillText(costCalc(400, 41, gameState), 225, 295);
+
+  //5.0
+  ctx.fillText(costCalc(300, 50, gameState), 415, 295);
+
+  //4.2
+  ctx.fillText(costCalc(400, 42, gameState), 610, 295)
+
+  //3.2
+  ctx.fillText(costCalc(400, 32, gameState), 765, 295);
   tileSpace.addEventListener('click', function (e) {
-    console.log(sortTile(e.target.id))
     if (e.target.className === 'up') {
       if (e.target.innerHTML > 0){
         gameState = upgradeTileSet(sortTile(e.target.id), gameState);
@@ -58,6 +57,7 @@ xhr.addEventListener('load', function () {
       score.innerHTML = gameState.scrap;
   	}
     decodeGameState(gameState);
+    redrawCost(gameState);
   })
   next.addEventListener('click', function () {
     var xhr2 = new XMLHttpRequest;
