@@ -16,7 +16,14 @@ var app = express();
 app.set('trust proxy', 1) // trust first proxy
 
 app.use(session({
-  keys: ['robotsecret','alphasecret']
+  keys: [
+    process.env.SESSIONKEY1,
+    process.env.SESSIONKEY2,
+    process.env.SESSIONKEY3,
+    process.env.SESSIONKEY4,
+    process.env.SESSIONKEY5,
+    process.env.SESSIONKEY6,
+    process.env.SESSIONKEY7]
 }))
 
 // view engine setup
