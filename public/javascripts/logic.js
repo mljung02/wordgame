@@ -476,12 +476,12 @@ var decodeGameState = function (gameState) {
       fire[1].children[i].className = 'tilesv';
     }
   }
-  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+  for (var i = 0; i < gameState.fire42.length - 1; i++) {
     if (gameState.fire42[i] === 3) {
       fire[3].children[i].className = 'tilesv';
     }
   }
-  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+  for (var i = 0; i < gameState.fire50.length - 1; i++) {
     if (gameState.fire50[i] === 3) {
       fire[2].children[i].className = 'tilesv';
     }
