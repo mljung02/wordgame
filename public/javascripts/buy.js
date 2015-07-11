@@ -26,6 +26,10 @@ xhr.addEventListener('load', function () {
   console.log(gameState);
   ctx.fillStyle = "black";
   ctx.font = "bold 24px Arial";
+  
+  ctx.fillText('Welcome to the workshop.  Here you can spend scrap to create and upgrade your Language Injection Units.', 700,100)
+  ctx.fillText('Click on any ', 700,100)
+  
   //3.1
   ctx.fillText(costCalc(500, 31, gameState), 65, 295);
 

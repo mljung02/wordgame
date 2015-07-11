@@ -171,6 +171,7 @@ a.black:hover {
   text-align: center;
   display: inline-block;
   overflow:hidden;
+  border: 1px dotted grey;
 }
 
 .up:hover {
