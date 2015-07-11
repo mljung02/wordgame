@@ -30,7 +30,6 @@ router.get('/logout', function (req, res, next) {
 })
 
 router.post('/update', function (req, res, next) {
-  console.log(req.session.email, req.body)
   alphabotsUsers.update({email: req.session.email}, {$set: {gameState: req.body}}, function (err,record) {
     req.session.scrap = req.body.scrap;
     res.send(req.body.scrap + " scrap recorded.");
@@ -112,7 +111,6 @@ router.use(function (req, res, next) {
 router.get('/', function(req, res, next) {
   if (req.session.email){
     alphabotsUsers.findOne({email: req.session.email}, function (err, record) {
-      console.log(record, '-----inside find');
       res.render('index', record);
     })
   }

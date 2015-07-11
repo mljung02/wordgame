@@ -39,7 +39,7 @@ xhr.addEventListener('load', function () {
   ctx.fillText(costCalc(400, 42, gameState), 610, 295)
 
   //3.2
-  ctx.fillText(costCalc(400, 32, gameState), 765, 295);
+  ctx.fillText(costCalc(500, 32, gameState), 765, 295);
   tileSpace.addEventListener('click', function (e) {
     if (e.target.className === 'up') {
       if (e.target.innerHTML > 0){
