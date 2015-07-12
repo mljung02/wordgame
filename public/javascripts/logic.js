@@ -501,12 +501,12 @@ var decodeGameState = function (gameState) {
       fire[1].children[i].className = 'tilesc';
     }
   }
-  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+  for (var i = 0; i < gameState.fire42.length - 1; i++) {
     if (gameState.fire42[i] === 2) {
       fire[3].children[i].className = 'tilesc';
     }
   }
-  for (var i = 0; i < gameState.fire31.length - 1; i++) {
+  for (var i = 0; i < gameState.fire50.length - 1; i++) {
     if (gameState.fire50[i] === 2) {
       fire[2].children[i].className = 'tilesc';
     }
