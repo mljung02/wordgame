@@ -47,7 +47,7 @@ var bossOneAlObj = {
 }
 
 
-var gameTime = 120 - ((gameState.level -1)*5);
+var gameTime = 120 - (gameState.level);
 
 //Health Bars
 ctx.fillStyle = "green";

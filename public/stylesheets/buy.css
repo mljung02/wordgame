@@ -182,21 +182,31 @@ a.black:hover {
 }
 
 #u31 {
+  overflow:hidden;
+  box-sizing:border-box;
   width: 105px;
 }
 
 #u50 {
+  overflow:hidden;
+  box-sizing:border-box;
   width: 175px;
 }
 
 #u41 {
+  overflow:hidden;
+  box-sizing:border-box;
   width: 140px;
 }
 
 #u42 {
+  overflow:hidden;
+  box-sizing:border-box;
   width: 140px;
 }
 
 #u32 {
+  overflow:hidden;
+  box-sizing:border-box;
   width: 105px;
 }

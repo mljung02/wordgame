@@ -25,11 +25,16 @@ xhr.addEventListener('load', function () {
   decodeGameState(gameState);
   console.log(gameState);
   ctx.fillStyle = "black";
+  ctx.font = "bold 18px Arial";
+  
+  ctx.fillText('Welcome to the workshop.', 300, 50)
+  ctx.fillText('Here you can spend scrap to create and upgrade your Language Injection Units.', 100,80)
+  ctx.fillText('Click on any of the numbers on bottom to unlock or upgrade a tile-set.', 100,110)
+  ctx.fillText('Upgraded tile-sets will be more effective, and each upgrade will cost a bit more', 100, 140)
+  ctx.fillText('Click on any unlocked individual tile upgrade it for 300 scrap.', 100,170)
+  ctx.fillText('One upgrade will make the tile only generate consonants.', 100, 200) 
+  ctx.fillText('A second upgrade will generate only vowels.', 100,230)
   ctx.font = "bold 24px Arial";
-  
-  ctx.fillText('Welcome to the workshop.  Here you can spend scrap to create and upgrade your Language Injection Units.', 100,100)
-  ctx.fillText('Click on any ', 100,200)
-  
   //3.1
   ctx.fillText(costCalc(500, 31, gameState), 65, 295);
 
