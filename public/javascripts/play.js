@@ -65,7 +65,7 @@ ctx.stroke();
 var bossOneAl =	new Robot(bossOneAlObj)
 
 //game
-function gameLoop () {
+function () {
 	
 	bossOneAl.update();
 	bossOneAl.render();

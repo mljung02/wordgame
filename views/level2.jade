@@ -72,6 +72,10 @@ html
       button(type='button' id='next') Continue
     div
       button(type='button' id='gameover') Home
+    div
+      if GameState.level < 4
+        p Click individual tiles to lock or unlock them to form words.  
+        p Once a word is locked in (purple), click again to inject into the robot when the robot is standing over the LIU.
     if email
       div#login Logged in as #{email}
         span | Level #{gameState.level} | Phase #{gameState.phase} | 
